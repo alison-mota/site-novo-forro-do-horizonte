@@ -53,21 +53,31 @@
         <!-- Poster Frame -->
         <div class="poster-frame relative overflow-hidden bg-sand/50">
             
-            <!-- L3 Microtexts Top -->
-            <div class="absolute top-6 left-6 right-6 flex justify-between items-start z-30 pointer-events-none">
-                <div class="micro-text text-left">
-                    <div>SLKR // DESIGN_EDITION</div>
-                    <div class="mt-1">UNFOCUS</div>
+            <!-- L3 Microtexts Top / Navigation -->
+            <nav class="absolute top-6 left-6 right-6 flex justify-between items-start z-30 pointer-events-auto">
+                <a href="index.html" class="micro-text text-left hover:text-orange transition-colors">
+                    <div>HOME</div>
+                    <div class="mt-1">FORRÓ DO HORIZONTE</div>
+                </a>
+                <div class="flex gap-8 micro-text text-center">
+                    <a href="agenda.html" class="hover:text-orange transition-colors">
+                        <div>AGENDA</div>
+                        <div class="mt-1">SHOWS</div>
+                    </a>
+                    <a href="biografia.html" class="hover:text-orange transition-colors">
+                        <div>BIO</div>
+                        <div class="mt-1">HISTÓRIA</div>
+                    </a>
+                    <a href="galeria.html" class="hover:text-orange transition-colors">
+                        <div>GALERIA</div>
+                        <div class="mt-1">FOTOS</div>
+                    </a>
                 </div>
-                <div class="micro-text text-center">
-                    <div>NOL6_v2</div>
-                    <div class="mt-1">SOFTEN</div>
-                </div>
-                <div class="micro-text text-right">
-                    <div>230717</div>
-                    <div class="mt-1">UNCLEAR</div>
-                </div>
-            </div>
+                <a href="contato.html" class="micro-text text-right hover:text-orange transition-colors">
+                    <div>CONTATO</div>
+                    <div class="mt-1">FALE CONOSCO</div>
+                </a>
+            </nav>
 
             <!-- L4 Dots Left -->
             <div class="absolute left-6 top-1/2 -translate-y-1/2 flex flex-col gap-3 z-30 pointer-events-none">
@@ -126,14 +136,14 @@
                 
                 <div class="hero-buttons flex flex-col sm:flex-row items-center justify-center gap-4 slide-up delay-200">
                     <!-- Primary Button -->
-                    <a href="#" class="group relative px-8 py-3 rounded-full overflow-hidden transition-transform hover:scale-105 active:scale-95">
+                    <a href="galeria.html" class="group relative px-8 py-3 rounded-full overflow-hidden transition-transform hover:scale-105 active:scale-95">
                         <div class="absolute inset-0 bg-gradient-to-r from-gold via-orange to-red opacity-90 group-hover:opacity-100 transition-opacity"></div>
                         <div class="absolute inset-0 bg-white/20 blur-lg opacity-0 group-hover:opacity-100 transition-opacity"></div>
                         <span class="relative font-sans font-semibold text-white text-sm tracking-wide uppercase">Ver fotos dos eventos</span>
                     </a>
                     
                     <!-- Secondary Button -->
-                    <a href="#" class="group px-8 py-3 rounded-full border border-ink/30 hover:border-ink hover:bg-ink/5 transition-all active:scale-95">
+                    <a href="contato.html" class="group px-8 py-3 rounded-full border border-ink/30 hover:border-ink hover:bg-ink/5 transition-all active:scale-95">
                         <span class="font-sans font-medium text-ink text-sm tracking-wide uppercase">Contratar Show</span>
                     </a>
                 </div>

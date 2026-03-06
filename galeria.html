@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forró do Horizonte - Galeria</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Sora:wght@700;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Custom Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        sand: '#F6F1E7',
+                        gold: '#F2B84B',
+                        orange: '#F47A2A',
+                        red: '#E33A2D',
+                        deep: '#6E1E1B',
+                        ink: '#1A1A1A',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Sora', 'sans-serif'],
+                    },
+                    letterSpacing: {
+                        micro: '0.32em',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="css/styles.css">
+    
+    <style>
+        /* Page specific styles */
+        .content-scroll {
+            height: 100%;
+            overflow-y: auto;
+            padding-top: 80px; /* Space for nav */
+            padding-bottom: 60px;
+            scrollbar-width: none; /* Firefox */
+        }
+        .content-scroll::-webkit-scrollbar {
+            display: none; /* Chrome/Safari */
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen relative selection:bg-orange selection:text-white">
+
+    <!-- L1 Background Grain -->
+    <div class="bg-grain"></div>
+    <div class="bg-vignette"></div>
+
+    <!-- Main Container -->
+    <main class="relative w-full h-full flex items-center justify-center p-4 md:p-8">
+        
+        <!-- Poster Frame -->
+        <div class="poster-frame relative overflow-hidden bg-sand/50">
+            
+            <!-- Navigation -->
+            <nav class="absolute top-6 left-6 right-6 flex justify-between items-start z-30 pointer-events-auto">
+                <a href="index.html" class="micro-text text-left hover:text-orange transition-colors">
+                    <div>HOME</div>
+                    <div class="mt-1">FORRÓ DO HORIZONTE</div>
+                </a>
+                <div class="flex gap-8 micro-text text-center">
+                    <a href="agenda.html" class="hover:text-orange transition-colors">
+                        <div>AGENDA</div>
+                        <div class="mt-1">SHOWS</div>
+                    </a>
+                    <a href="biografia.html" class="hover:text-orange transition-colors">
+                        <div>BIO</div>
+                        <div class="mt-1">HISTÓRIA</div>
+                    </a>
+                    <a href="galeria.html" class="text-orange font-bold">
+                        <div>GALERIA</div>
+                        <div class="mt-1">FOTOS</div>
+                    </a>
+                </div>
+                <a href="contato.html" class="micro-text text-right hover:text-orange transition-colors">
+                    <div>CONTATO</div>
+                    <div class="mt-1">FALE CONOSCO</div>
+                </a>
+            </nav>
+
+            <!-- L5 Sun Circle (Background) -->
+            <div class="sun-wrap" style="opacity: 0.2; transform: translateX(-50%) translateY(-10%);">
+                <div class="sun-gradient"></div>
+            </div>
+
+            <!-- Content Area -->
+            <div class="content-scroll px-6 md:px-12 relative z-20">
+                <h1 class="font-display font-bold text-4xl md:text-5xl text-ink mb-12 text-center slide-up">MOMENTOS</h1>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 slide-up delay-100">
+                    
+                    <!-- Gallery Item 1 -->
+                    <div class="aspect-square bg-ink/5 rounded-lg overflow-hidden relative group cursor-pointer">
+                        <div class="absolute inset-0 bg-orange/20 mix-blend-multiply opacity-0 group-hover:opacity-100 transition-opacity z-10"></div>
+                        <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity z-20">
+                            <span class="text-white font-display font-bold text-lg tracking-widest">SHOW SP</span>
+                        </div>
+                        <img src="https://placehold.co/600x600/F6F1E7/1A1A1A?text=FOTO+01" alt="Foto 1" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500">
+                    </div>
+
+                    <!-- Gallery Item 2 -->
+                    <div class="aspect-square bg-ink/5 rounded-lg overflow-hidden relative group cursor-pointer">
+                        <div class="absolute inset-0 bg-orange/20 mix-blend-multiply opacity-0 group-hover:opacity-100 transition-opacity z-10"></div>
+                        <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity z-20">
+                            <span class="text-white font-display font-bold text-lg tracking-widest">ENSAIO</span>
+                        </div>
+                        <img src="https://placehold.co/600x600/F6F1E7/1A1A1A?text=FOTO+02" alt="Foto 2" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500">
+                    </div>
+
+                    <!-- Gallery Item 3 -->
+                    <div class="aspect-square bg-ink/5 rounded-lg overflow-hidden relative group cursor-pointer">
+                        <div class="absolute inset-0 bg-orange/20 mix-blend-multiply opacity-0 group-hover:opacity-100 transition-opacity z-10"></div>
+                        <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity z-20">
+                            <span class="text-white font-display font-bold text-lg tracking-widest">BASTIDORES</span>
+                        </div>
+                        <img src="https://placehold.co/600x600/F6F1E7/1A1A1A?text=FOTO+03" alt="Foto 3" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500">
+                    </div>
+
+                    <!-- Gallery Item 4 -->
+                    <div class="aspect-square bg-ink/5 rounded-lg overflow-hidden relative group cursor-pointer">
+                        <div class="absolute inset-0 bg-orange/20 mix-blend-multiply opacity-0 group-hover:opacity-100 transition-opacity z-10"></div>
+                        <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity z-20">
+                            <span class="text-white font-display font-bold text-lg tracking-widest">TURNÊ 24</span>
+                        </div>
+                        <img src="https://placehold.co/600x600/F6F1E7/1A1A1A?text=FOTO+04" alt="Foto 4" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500">
+                    </div>
+
+                    <!-- Gallery Item 5 -->
+                    <div class="aspect-square bg-ink/5 rounded-lg overflow-hidden relative group cursor-pointer">
+                        <div class="absolute inset-0 bg-orange/20 mix-blend-multiply opacity-0 group-hover:opacity-100 transition-opacity z-10"></div>
+                        <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity z-20">
+                            <span class="text-white font-display font-bold text-lg tracking-widest">RECIFE</span>
+                        </div>
+                        <img src="https://placehold.co/600x600/F6F1E7/1A1A1A?text=FOTO+05" alt="Foto 5" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500">
+                    </div>
+
+                    <!-- Gallery Item 6 -->
+                    <div class="aspect-square bg-ink/5 rounded-lg overflow-hidden relative group cursor-pointer">
+                        <div class="absolute inset-0 bg-orange/20 mix-blend-multiply opacity-0 group-hover:opacity-100 transition-opacity z-10"></div>
+                        <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity z-20">
+                            <span class="text-white font-display font-bold text-lg tracking-widest">ESTÚDIO</span>
+                        </div>
+                        <img src="https://placehold.co/600x600/F6F1E7/1A1A1A?text=FOTO+06" alt="Foto 6" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500">
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Decorative Bottom Bar -->
+            <div class="absolute bottom-1 left-1/2 -translate-x-1/2 w-24 h-1 bg-ink/10 rounded-full z-30"></div>
+
+        </div>
+    </main>
+
+</body>
+</html>
