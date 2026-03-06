@@ -1,0 +1,16 @@
+# Ignorar arquivos de sistema
+.DS_Store
+Thumbs.db
+
+# Ignorar dependências (caso use npm no futuro)
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Ignorar arquivos de ambiente
+.env
+.env.local
+
+# Ignorar pasta de build (caso use bundler)
+dist/
+build/
