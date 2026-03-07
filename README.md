@@ -6,16 +6,25 @@ Site oficial da banda Forró do Horizonte, com design editorial e estética mode
 
 ```
 /
-├── pages/              # Páginas HTML do site
-│   ├── index.html      # Home
-│   ├── agenda.html     # Agenda de Shows
-│   ├── biografia.html  # História da Banda
-│   ├── galeria.html    # Fotos
-│   └── contato.html    # Formulário de Contato
-├── css/
-│   └── styles.css      # Estilos customizados
+├── pages/                   # Fonte do Vite para rotas limpas
+│   ├── index.html           # Home
+│   ├── agenda.html          # Agenda de Shows
+│   ├── biografia.html       # História da Banda
+│   ├── galeria.html         # Fotos
+│   ├── contato.html         # Formulário de Contato
+│   ├── src/
+│   │   ├── components/      # Botões, navegação, hero, cards e campos
+│   │   ├── data/            # Conteúdo estruturado de agenda e galeria
+│   │   ├── entries/         # Entradas por rota
+│   │   ├── layouts/         # Shell compartilhado das páginas
+│   │   └── pages/           # Renderizadores por página
+│   └── styles/
+│       ├── base/            # Tokens, reset, tipografia e animações
+│       ├── layout/          # Estrutura global
+│       ├── components/      # Estilos de componentes reutilizáveis
+│       └── pages/           # Ajustes específicos por rota
 ├── assets/
-│   └── images/         # Imagens e assets estáticos
+│   └── images/              # Imagens e assets estáticos
 └── .gitignore
 ```
 
@@ -23,14 +32,20 @@ Site oficial da banda Forró do Horizonte, com design editorial e estética mode
 
 - HTML5
 - CSS3 (Tailwind CSS via CDN)
+- Vite (dev server e build)
 - Design Responsivo
 
 ## Como Rodar
 
-Basta abrir o arquivo `pages/index.html` em qualquer navegador moderno.
-
-Para desenvolvimento, recomenda-se usar uma extensão como "Live Server" no VS Code, abrindo a pasta raiz do projeto.
+1. Instale as dependencias:
+   - `npm install`
+2. Rode em desenvolvimento:
+   - `npm run dev`
+3. Build de producao:
+   - `npm run build`
+4. Preview local da build:
+   - `npm run preview`
 
 ## Deploy
 
-Este projeto é estático. Ao configurar o deploy (Vercel/Netlify), lembre-se de configurar o diretório de saída ou redirecionar a raiz para `pages/index.html` se necessário, ou mover o `index.html` para a raiz no processo de build.
+Este projeto gera arquivos estaticos em `dist/` apos `npm run build`, com rotas limpas como `/index.html`, `/agenda.html`, `/biografia.html`, `/galeria.html` e `/contato.html` (sem `/pages` na URL). Essa pasta pode ser publicada em Vercel, Netlify, GitHub Pages ou outro host estatico.

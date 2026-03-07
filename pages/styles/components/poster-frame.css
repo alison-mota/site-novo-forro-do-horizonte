@@ -1,0 +1,40 @@
+.poster-frame {
+  position: relative;
+  width: min(1100px, 92vw);
+  height: min(860px, 92vh);
+  margin: auto;
+  overflow: hidden;
+  border: 1px solid rgba(26, 26, 26, 0.12);
+  background: rgba(246, 241, 231, 0.5);
+  clip-path: polygon(
+    0% 20px,
+    20px 0%,
+    calc(100% - 20px) 0%,
+    100% 20px,
+    100% calc(100% - 20px),
+    calc(100% - 20px) 100%,
+    20px 100%,
+    0% calc(100% - 20px)
+  );
+}
+
+.poster-frame::before {
+  content: "";
+  position: absolute;
+  inset: 4px;
+  border: 1px solid rgba(26, 26, 26, 0.06);
+  clip-path: inherit;
+  pointer-events: none;
+}
+
+.decorative-bottom-bar {
+  position: absolute;
+  bottom: 4px;
+  left: 50%;
+  width: 6rem;
+  height: 0.25rem;
+  transform: translateX(-50%);
+  border-radius: 9999px;
+  background: rgba(26, 26, 26, 0.1);
+  z-index: 30;
+}

@@ -1,0 +1,82 @@
+.page-shell {
+  position: relative;
+}
+
+.page-scene-host {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  display: grid;
+}
+
+.route-scene {
+  position: absolute;
+  inset: 0;
+  grid-area: 1 / 1;
+  will-change: transform, opacity, filter;
+}
+
+.home-editorial-footer-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 30;
+  pointer-events: none;
+}
+
+.sun-layer-stack {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.sun-layer-scene {
+  position: absolute;
+  inset: 0;
+  will-change: transform, opacity;
+}
+
+.wind-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.wind-overlay__gust {
+  position: absolute;
+  top: 18%;
+  left: -20%;
+  width: 140%;
+  height: 34%;
+  opacity: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.04) 16%,
+    rgba(255, 255, 255, 0.16) 50%,
+    rgba(255, 255, 255, 0.04) 84%,
+    transparent 100%
+  );
+  filter: blur(40px);
+}
+
+.button:focus-visible,
+.site-nav__link:focus-visible,
+.contact-info__email:focus-visible,
+.form-control:focus-visible {
+  outline: 2px solid rgba(244, 122, 42, 0.45);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .route-scene,
+  .sun-layer-scene,
+  .wind-overlay__gust {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+    filter: none !important;
+  }
+}

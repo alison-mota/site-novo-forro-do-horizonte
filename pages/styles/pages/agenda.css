@@ -1,0 +1,4 @@
+.page-shell--agenda .sun-wrap {
+  opacity: 0.4;
+  --sun-base-y: -30%;
+}

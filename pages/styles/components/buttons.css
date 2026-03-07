@@ -1,0 +1,93 @@
+.button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, opacity 0.2s ease;
+}
+
+.button:hover {
+  transform: scale(1.05);
+}
+
+.button:active {
+  transform: scale(0.95);
+}
+
+.button__label {
+  position: relative;
+  z-index: 2;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.button--md {
+  padding: 0.875rem 2rem;
+}
+
+.button--sm {
+  padding: 0.625rem 1.5rem;
+}
+
+.button--full {
+  width: 100%;
+}
+
+.button--primary {
+  overflow: hidden;
+  color: white;
+}
+
+.button--primary .button__bg {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, var(--color-gold), var(--color-orange), var(--color-red));
+  opacity: 0.9;
+  transition: opacity 0.2s ease;
+}
+
+.button--primary .button__glow {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.2);
+  filter: blur(18px);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.button--primary:hover .button__bg {
+  opacity: 1;
+}
+
+.button--primary:hover .button__glow {
+  opacity: 1;
+}
+
+.button--secondary,
+.button--small {
+  border: 1px solid rgba(26, 26, 26, 0.3);
+  color: var(--color-ink);
+}
+
+.button--secondary:hover,
+.button--small:hover {
+  border-color: var(--color-ink);
+  background: rgba(26, 26, 26, 0.05);
+}
+
+.button--dark {
+  background: var(--color-ink);
+  color: white;
+}
+
+.button--dark:hover {
+  background: var(--color-orange);
+}
+
+.button--small .button__label {
+  font-size: 0.75rem;
+  font-weight: 700;
+}

@@ -1,0 +1,31 @@
+{
+  "name": "site-novo-forro-do-horizonte",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Site oficial da banda Forró do Horizonte, com design editorial e estética moderna.",
+  "scripts": {
+    "dev": "vite --open /",
+    "build": "vite build",
+    "preview": "vite preview --open /",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@testing-library/user-event": "^14.6.1",
+    "@vitejs/plugin-react": "^5.1.4",
+    "jsdom": "^28.1.0",
+    "vite": "^7.3.1",
+    "vitest": "^4.0.18"
+  },
+  "dependencies": {
+    "framer-motion": "^12.35.0",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "react-router-dom": "^7.13.1"
+  }
+}

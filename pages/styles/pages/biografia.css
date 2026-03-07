@@ -1,0 +1,106 @@
+.page-shell--biografia .sun-wrap {
+  opacity: 0.3;
+  --sun-base-y: -20%;
+}
+
+.bio-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  max-width: 64rem;
+  margin: 0 auto;
+  padding-top: 3rem;
+}
+
+@media (min-width: 768px) {
+  .bio-layout {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+}
+
+.bio-copy,
+.bio-media {
+  flex: 1;
+}
+
+.bio-title {
+  margin: 0 0 1.5rem;
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 4vw, 3.5rem);
+  font-weight: 800;
+  line-height: 1.05;
+  color: var(--color-ink);
+}
+
+.bio-title__accent {
+  color: var(--color-orange);
+}
+
+.bio-lead {
+  margin: 0 0 1rem;
+  font-family: var(--font-sans);
+  font-size: 1.125rem;
+  line-height: 1.7;
+  color: rgba(26, 26, 26, 0.8);
+}
+
+.bio-text {
+  margin: 0;
+  font-family: var(--font-sans);
+  line-height: 1.8;
+  color: rgba(26, 26, 26, 0.7);
+}
+
+.bio-members {
+  padding-top: 1rem;
+}
+
+.bio-members__title {
+  margin: 0 0 0.5rem;
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.bio-members__list {
+  margin: 0;
+  padding-left: 1rem;
+  font-family: var(--font-sans);
+  color: rgba(26, 26, 26, 0.8);
+}
+
+.bio-members__list strong {
+  color: var(--color-orange);
+}
+
+.bio-media__frame {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  width: 100%;
+  max-width: 28rem;
+  margin: 0 auto;
+  overflow: hidden;
+  border: 1px solid rgba(26, 26, 26, 0.1);
+  border-radius: 0.5rem;
+}
+
+.bio-media__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(1);
+  transition: filter 0.7s ease;
+}
+
+.bio-media__frame:hover .bio-media__image {
+  filter: grayscale(0);
+}
+
+.bio-media__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(244, 122, 42, 0.1);
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
