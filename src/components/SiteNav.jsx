@@ -17,9 +17,9 @@ function renderLink(item, alignmentClass = "") {
   );
 }
 
-export default function SiteNav() {
+export default function SiteNav({ isScrolled = false }) {
   return (
-    <nav className="site-nav">
+    <nav className={`site-nav ${isScrolled ? "site-nav--scrolled" : ""}`.trim()}>
       {renderLink(navData.home, "site-nav__link--left")}
       <div className="site-nav__group">
         {navData.center.map((item) => renderLink(item, "site-nav__link--center"))}

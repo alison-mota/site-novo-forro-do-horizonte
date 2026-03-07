@@ -3,6 +3,7 @@ import AppShell from "./layout/AppShell.jsx";
 import AgendaPage from "./pages/AgendaPage.jsx";
 import BiografiaPage from "./pages/BiografiaPage.jsx";
 import ContatoPage from "./pages/ContatoPage.jsx";
+import GaleriaEventoPage from "./pages/GaleriaEventoPage.jsx";
 import GaleriaPage from "./pages/GaleriaPage.jsx";
 import HomePage from "./pages/HomePage.jsx";
 
@@ -14,6 +15,7 @@ export function AppRoutes() {
         <Route path="/agenda" element={<AgendaPage />} />
         <Route path="/biografia" element={<BiografiaPage />} />
         <Route path="/galeria" element={<GaleriaPage />} />
+        <Route path="/galeria/:eventSlug" element={<GaleriaEventoPage />} />
         <Route path="/contato" element={<ContatoPage />} />
       </Route>
     </Routes>

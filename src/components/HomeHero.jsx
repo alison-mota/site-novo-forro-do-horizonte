@@ -18,7 +18,7 @@ export default function HomeHero({ direction = 1 }) {
           - Se for madrugada (restante): posicionar bem mais abaixo, como sol nascente. */}
       <div className="hero-transition-content">
         <motion.div className="band-photo-container" {...mediaMotion}>
-          <img src="/images/band.png" alt="Forró do Horizonte" className="band-photo" />
+          <img src="/images/general/band.png" alt="Forró do Horizonte" className="band-photo" />
           <div className="band-photo-overlay"></div>
         </motion.div>
 

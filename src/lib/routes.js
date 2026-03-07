@@ -21,13 +21,15 @@ export function getRouteId(pathname) {
 
   const cleanPath = pathname.replace(/\/+$/, "");
 
+  if (cleanPath === "/galeria" || cleanPath.startsWith("/galeria/")) {
+    return "galeria";
+  }
+
   switch (cleanPath) {
     case "/agenda":
       return "agenda";
     case "/biografia":
       return "biografia";
-    case "/galeria":
-      return "galeria";
     case "/contato":
       return "contato";
     default:
