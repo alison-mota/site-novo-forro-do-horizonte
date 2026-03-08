@@ -1,12 +1,15 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { generateEventSlug } from "../data/events.js";
 import { getGroupMotion } from "../lib/motion.js";
 import { useEvents } from "../hooks/useEvents.js";
+import GalleryFindPhotosCta from "../components/GalleryFindPhotosCta.jsx";
+import GalleryFindPhotosModal from "../components/GalleryFindPhotosModal.jsx";
 
 const IMAGES_PER_PAGE = 10;
+const ENABLE_FACE_SEARCH = false;
 
 function BackIcon() {
   return (
@@ -55,12 +58,28 @@ export default function GaleriaEventoPage({ direction = 1 }) {
   const [preloadProgress, setPreloadProgress] = useState({ current: 0, total: 0 });
   const [showScrollTopButton, setShowScrollTopButton] = useState(false);
   const [pageShellElement, setPageShellElement] = useState(null);
+  const [isFindPhotosOpen, setIsFindPhotosOpen] = useState(false);
+  const [matchedPhotos, setMatchedPhotos] = useState(null);
 
   const headlineMotion = getGroupMotion("headline", direction);
   const contentMotion = getGroupMotion("content", direction);
   const metaMotion = getGroupMotion("meta", direction);
 
   const event = events.find((entry) => generateEventSlug(entry.title) === eventSlug);
+  const navigableImages = matchedPhotos ?? validImages;
+  const visibleGridImages = matchedPhotos ?? visibleImages;
+  const matchedCount = matchedPhotos?.length ?? 0;
+  const isFaceSearchReady =
+    validImages.length > 0 && preloadProgress.total > 0 && preloadProgress.current >= preloadProgress.total;
+  const searchablePhotos = useMemo(
+    () =>
+      validImages.map((url, index) => ({
+        id: imageToFileIdMap[url] || `${eventSlug}-${index}`,
+        url,
+        fileId: imageToFileIdMap[url] || null,
+      })),
+    [eventSlug, imageToFileIdMap, validImages],
+  );
 
   useEffect(() => {
     let active = true;
@@ -244,8 +263,15 @@ export default function GaleriaEventoPage({ direction = 1 }) {
     };
   }, []);
 
+  useEffect(() => {
+    setMatchedPhotos(null);
+    setIsFindPhotosOpen(false);
+    setSelectedImage(null);
+    setCurrentImageIndex(0);
+  }, [eventSlug]);
+
   function openImage(imageUrl) {
-    const realIndex = validImages.indexOf(imageUrl);
+    const realIndex = navigableImages.indexOf(imageUrl);
     setSelectedImage(imageUrl);
     setCurrentImageIndex(realIndex >= 0 ? realIndex : 0);
   }
@@ -268,23 +294,27 @@ export default function GaleriaEventoPage({ direction = 1 }) {
   }
 
   function showNextImage() {
-    if (!validImages.length) {
+    if (!navigableImages.length) {
       return;
     }
 
-    const nextIndex = (currentImageIndex + 1) % validImages.length;
+    const nextIndex = (currentImageIndex + 1) % navigableImages.length;
     setCurrentImageIndex(nextIndex);
-    setSelectedImage(validImages[nextIndex]);
+    setSelectedImage(navigableImages[nextIndex]);
   }
 
   function showPreviousImage() {
-    if (!validImages.length) {
+    if (!navigableImages.length) {
       return;
     }
 
-    const prevIndex = (currentImageIndex - 1 + validImages.length) % validImages.length;
+    const prevIndex = (currentImageIndex - 1 + navigableImages.length) % navigableImages.length;
     setCurrentImageIndex(prevIndex);
-    setSelectedImage(validImages[prevIndex]);
+    setSelectedImage(navigableImages[prevIndex]);
+  }
+
+  function clearMatchedPhotos() {
+    setMatchedPhotos(null);
   }
 
   async function handleDownload(imageUrl) {
@@ -408,14 +438,31 @@ export default function GaleriaEventoPage({ direction = 1 }) {
           <span>{validImages.length} fotos válidas</span>
         </motion.div>
 
+        {ENABLE_FACE_SEARCH && matchedPhotos ? (
+          <motion.div className="gallery-find__summary" {...metaMotion}>
+            <p className="gallery-find__summary-copy">
+              <strong>Encontramos {matchedCount} fotos suas neste evento.</strong> A galeria abaixo foi filtrada com base na selfie enviada.
+            </p>
+
+            <div className="gallery-find__summary-actions">
+              <button type="button" className="gallery-find__summary-button" onClick={() => setIsFindPhotosOpen(true)}>
+                Buscar com outra foto
+              </button>
+              <button type="button" className="gallery-find__summary-button" onClick={clearMatchedPhotos}>
+                Ver todas as fotos
+              </button>
+            </div>
+          </motion.div>
+        ) : null}
+
         {isPreloading ? (
           <motion.div className="gallery-state" {...contentMotion}>
             Carregando e validando imagens... {preloadProgress.current}/{preloadProgress.total || 0}
           </motion.div>
         ) : (
           <motion.div className="gallery-event__grid" {...contentMotion}>
-            {visibleImages.map((image) => {
-              const realIndex = validImages.indexOf(image);
+            {visibleGridImages.map((image) => {
+              const realIndex = navigableImages.indexOf(image);
               const label = String(realIndex + 1).padStart(2, "0");
 
               return (
@@ -445,8 +492,25 @@ export default function GaleriaEventoPage({ direction = 1 }) {
           <p className="gallery-state">Nenhuma foto válida foi encontrada para este evento.</p>
         ) : null}
 
-        {!isPreloading && loadedCount < validImages.length ? <div ref={observerRef} className="gallery-event__load-more">Carregando mais fotos...</div> : null}
+        {!matchedPhotos && !isPreloading && loadedCount < validImages.length ? <div ref={observerRef} className="gallery-event__load-more">Carregando mais fotos...</div> : null}
       </div>
+
+      {ENABLE_FACE_SEARCH && pageShellElement ? (
+        <GalleryFindPhotosCta
+          portalRoot={pageShellElement}
+          onOpen={() => {
+            if (isFaceSearchReady) {
+              setIsFindPhotosOpen(true);
+            }
+          }}
+          isDisabled={!isFaceSearchReady}
+          helperText={
+            isFaceSearchReady
+              ? ""
+              : "Estamos preparando todas as fotos deste evento para que a busca facial analise o conjunto completo."
+          }
+        />
+      ) : null}
 
       {pageShellElement
         ? createPortal(
@@ -471,6 +535,22 @@ export default function GaleriaEventoPage({ direction = 1 }) {
           )
         : null}
 
+      {ENABLE_FACE_SEARCH ? (
+        <GalleryFindPhotosModal
+          isOpen={isFindPhotosOpen}
+          onClose={() => setIsFindPhotosOpen(false)}
+          eventSlug={eventSlug}
+          eventTitle={event.title}
+          photos={searchablePhotos}
+          onApplyResults={(results) => {
+            setMatchedPhotos(results.map((result) => result.url));
+            setSelectedImage(null);
+            setCurrentImageIndex(0);
+            scrollToTop();
+          }}
+        />
+      ) : null}
+
       {createPortal(
         <AnimatePresence>
           {selectedImage ? (
@@ -493,7 +573,7 @@ export default function GaleriaEventoPage({ direction = 1 }) {
                   FECHAR
                 </button>
 
-                {validImages.length > 1 ? (
+                {navigableImages.length > 1 ? (
                   <button
                     type="button"
                     className="gallery-lightbox__nav gallery-lightbox__nav--prev"
@@ -503,7 +583,7 @@ export default function GaleriaEventoPage({ direction = 1 }) {
                   </button>
                 ) : null}
 
-                {validImages.length > 1 ? (
+                {navigableImages.length > 1 ? (
                   <button
                     type="button"
                     className="gallery-lightbox__nav gallery-lightbox__nav--next"
@@ -524,7 +604,7 @@ export default function GaleriaEventoPage({ direction = 1 }) {
                     BAIXAR FOTO
                   </button>
                   <span className="gallery-lightbox__counter">
-                    {currentImageIndex + 1} / {validImages.length}
+                    {currentImageIndex + 1} / {navigableImages.length}
                   </span>
                 </div>
               </motion.div>

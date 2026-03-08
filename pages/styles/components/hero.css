@@ -150,9 +150,36 @@
   pointer-events: none;
 }
 
-.home-editorial-footer__left,
-.home-editorial-footer__right {
+.home-editorial-footer__left {
   width: 6rem;
+}
+
+.home-editorial-footer__right {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.15rem;
+  width: max-content;
+  margin-left: auto;
+  pointer-events: auto;
+}
+
+.home-editorial-footer__credit-label {
+  text-align: left;
+}
+
+.home-editorial-footer__credit-link {
+  color: inherit;
+  text-decoration: none;
+  text-align: center;
+}
+
+.home-editorial-footer__credit-link:hover {
+  text-decoration: underline;
+}
+
+.home-editorial-footer__credit-year {
+  text-align: right;
 }
 
 .home-editorial-footer__center {

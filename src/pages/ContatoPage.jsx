@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { createPortal } from "react-dom";
-import SectionHeading from "../components/SectionHeading.jsx";
 import { getGroupMotion } from "../lib/motion.js";
 
 const WHATSAPP_NUMBER = "5534999023439";
@@ -165,7 +164,6 @@ function WhatsappIcon() {
 
 export default function ContatoPage({ direction = 1 }) {
   const initialState = useMemo(() => getInitialChatState(), []);
-  const headlineMotion = getGroupMotion("headline", direction);
   const contentMotion = getGroupMotion("content", direction);
   const metaMotion = getGroupMotion("meta", direction);
   const messagesEndRef = useRef(null);
@@ -434,13 +432,7 @@ export default function ContatoPage({ direction = 1 }) {
 
   return (
     <div className="content-scroll page-content page-content--centered">
-      <motion.div {...headlineMotion}>
-        <SectionHeading>CONTRATAR SHOW</SectionHeading>
-      </motion.div>
-
       <motion.form className="contact-chat" onSubmit={handleSubmitMessage} {...contentMotion}>
-        <div className="contact-chat__halo" aria-hidden="true"></div>
-
         <div className="contact-chat__messages" role="log" aria-live="polite">
           {messages.map((message) => (
             <div

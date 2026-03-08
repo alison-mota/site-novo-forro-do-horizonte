@@ -1,0 +1,480 @@
+.gallery-event__find-banner {
+  position: absolute;
+  top: 7rem;
+  left: 1.5rem;
+  z-index: 26;
+  display: none;
+  width: 15rem;
+  padding: 1.15rem;
+  border: 1px solid rgba(26, 26, 26, 0.08);
+  border-radius: 1.25rem;
+  background:
+    radial-gradient(circle at top, rgba(244, 122, 42, 0.16), transparent 55%),
+    rgba(255, 248, 236, 0.94);
+  box-shadow: 0 18px 40px rgba(26, 26, 26, 0.09);
+  backdrop-filter: blur(10px);
+}
+
+.gallery-event__find-banner-eyebrow {
+  margin: 0 0 0.6rem;
+  font-family: var(--font-sans);
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(26, 26, 26, 0.44);
+}
+
+.gallery-event__find-banner-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.55rem;
+  line-height: 1.02;
+  color: var(--color-ink);
+}
+
+.gallery-event__find-banner-copy {
+  margin: 0.85rem 0 1rem;
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: rgba(26, 26, 26, 0.72);
+}
+
+.gallery-event__find-banner-helper {
+  margin: 0 0 0.9rem;
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  line-height: 1.45;
+  color: rgba(26, 26, 26, 0.58);
+}
+
+.gallery-event__find-banner-cta,
+.gallery-find-modal__primary-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  min-height: 3rem;
+  padding: 0.8rem 1rem;
+  border: 0;
+  border-radius: 999px;
+  background: linear-gradient(120deg, var(--color-gold), var(--color-orange), var(--color-red));
+  box-shadow: 0 14px 26px rgba(227, 58, 45, 0.24);
+  cursor: pointer;
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: white;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.gallery-event__find-banner-cta:hover,
+.gallery-find-modal__primary-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 18px 30px rgba(227, 58, 45, 0.28);
+}
+
+.gallery-event__find-banner-cta:disabled,
+.gallery-event__floating-button--find:disabled {
+  cursor: wait;
+  opacity: 0.72;
+  transform: none;
+  box-shadow: none;
+}
+
+.gallery-find__cta-icon {
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
+}
+
+.gallery-event__floating-actions--center {
+  left: 50%;
+  transform: translateX(-50%);
+  display: none;
+}
+
+.gallery-event__floating-button--find {
+  background: linear-gradient(120deg, rgba(244, 122, 42, 0.96), rgba(227, 58, 45, 0.96));
+  color: white;
+}
+
+.gallery-find__summary {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  max-width: 54rem;
+  margin: 0 auto 1.5rem;
+  padding: 1rem 1.15rem;
+  border: 1px solid rgba(26, 26, 26, 0.08);
+  border-radius: 1rem;
+  background: rgba(255, 248, 236, 0.9);
+}
+
+.gallery-find__summary-copy {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: rgba(26, 26, 26, 0.76);
+}
+
+.gallery-find__summary-copy strong {
+  color: var(--color-ink);
+}
+
+.gallery-find__summary-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.gallery-find__summary-button,
+.gallery-find-modal__secondary-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  min-height: 2.75rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid rgba(26, 26, 26, 0.08);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.86);
+  cursor: pointer;
+  font-family: var(--font-sans);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-ink);
+}
+
+.gallery-find-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+}
+
+.gallery-find-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(15, 15, 15, 0.74);
+  backdrop-filter: blur(4px);
+}
+
+.gallery-find-modal__panel {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 40rem);
+  max-height: min(90vh, 48rem);
+  overflow-y: auto;
+  padding: 1.4rem;
+  border: 1px solid rgba(26, 26, 26, 0.08);
+  border-radius: 1.5rem;
+  background:
+    radial-gradient(circle at top, rgba(244, 122, 42, 0.14), transparent 45%),
+    #fff8f2;
+  box-shadow: 0 24px 60px rgba(26, 26, 26, 0.24);
+}
+
+.gallery-find-modal__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.gallery-find-modal__eyebrow {
+  margin: 0 0 0.45rem;
+  font-family: var(--font-sans);
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(26, 26, 26, 0.46);
+}
+
+.gallery-find-modal__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.45rem, 4vw, 2.2rem);
+  line-height: 1.05;
+  color: var(--color-ink);
+}
+
+.gallery-find-modal__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.7rem;
+  height: 2.7rem;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(26, 26, 26, 0.06);
+  color: var(--color-ink);
+  cursor: pointer;
+}
+
+.gallery-find-modal__close-icon {
+  width: 1rem;
+  height: 1rem;
+}
+
+.gallery-find-modal__hint,
+.gallery-find-modal__model-status,
+.gallery-find-modal__inline-error {
+  margin: 1rem 0 0;
+  font-family: var(--font-sans);
+  font-size: 0.92rem;
+  line-height: 1.55;
+}
+
+.gallery-find-modal__hint,
+.gallery-find-modal__model-status {
+  color: rgba(26, 26, 26, 0.66);
+}
+
+.gallery-find-modal__inline-error {
+  color: #b45309;
+}
+
+.gallery-find-modal__actions {
+  display: grid;
+  gap: 0.9rem;
+  margin-top: 1.3rem;
+}
+
+.gallery-find-modal__action-card {
+  display: grid;
+  gap: 0.55rem;
+  padding: 1rem;
+  border: 1px solid rgba(26, 26, 26, 0.08);
+  border-radius: 1.15rem;
+  background: rgba(255, 255, 255, 0.82);
+  cursor: pointer;
+  text-align: left;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.gallery-find-modal__action-card:hover {
+  transform: translateY(-1px);
+  border-color: rgba(244, 122, 42, 0.28);
+  box-shadow: 0 14px 26px rgba(26, 26, 26, 0.08);
+}
+
+.gallery-find-modal__action-card strong {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  color: var(--color-ink);
+}
+
+.gallery-find-modal__action-card span {
+  font-family: var(--font-sans);
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: rgba(26, 26, 26, 0.68);
+}
+
+.gallery-find-modal__action-icon {
+  width: 1.3rem;
+  height: 1.3rem;
+  color: var(--color-orange);
+}
+
+.gallery-find-modal__hidden-input {
+  display: none;
+}
+
+.gallery-find-modal__camera,
+.gallery-find-modal__preview,
+.gallery-find-modal__state {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1.3rem;
+}
+
+.gallery-find-modal__camera-video,
+.gallery-find-modal__preview-frame {
+  width: 100%;
+  overflow: hidden;
+  border-radius: 1.15rem;
+  background: rgba(26, 26, 26, 0.08);
+}
+
+.gallery-find-modal__camera-video {
+  display: block;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+}
+
+.gallery-find-modal__preview-image {
+  display: block;
+  width: 100%;
+  max-height: 24rem;
+  object-fit: cover;
+}
+
+.gallery-find-modal__footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.gallery-find-modal__loader {
+  display: grid;
+  justify-items: center;
+  gap: 0.8rem;
+  margin-top: 1.5rem;
+  padding: 1.2rem 0 0.5rem;
+  text-align: center;
+}
+
+.gallery-find-modal__loader-accordion {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.28rem;
+  height: 4rem;
+}
+
+.gallery-find-modal__loader-fold {
+  width: 0.95rem;
+  height: 3rem;
+  border-radius: 0.35rem;
+  background: linear-gradient(to bottom, var(--color-gold), var(--color-orange), var(--color-red));
+  transform-origin: center;
+  animation: gallery-find-accordion 1.2s ease-in-out infinite;
+}
+
+.gallery-find-modal__loader-fold:nth-child(2) {
+  animation-delay: 0.1s;
+}
+
+.gallery-find-modal__loader-fold:nth-child(3) {
+  animation-delay: 0.2s;
+}
+
+.gallery-find-modal__loader-fold:nth-child(4) {
+  animation-delay: 0.3s;
+}
+
+.gallery-find-modal__loader-fold:nth-child(5) {
+  animation-delay: 0.4s;
+}
+
+.gallery-find-modal__loader-kicker,
+.gallery-find-modal__loader-progress {
+  margin: 0;
+  font-family: var(--font-sans);
+}
+
+.gallery-find-modal__loader-kicker {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(26, 26, 26, 0.46);
+}
+
+.gallery-find-modal__loader-phrase {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.1rem, 3vw, 1.45rem);
+  line-height: 1.2;
+  color: var(--color-ink);
+}
+
+.gallery-find-modal__loader-progress {
+  font-size: 0.9rem;
+  color: rgba(26, 26, 26, 0.62);
+}
+
+.gallery-find-modal__state h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.55rem;
+  line-height: 1.08;
+  color: var(--color-ink);
+}
+
+.gallery-find-modal__state p {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: rgba(26, 26, 26, 0.72);
+}
+
+@keyframes gallery-find-accordion {
+  0%,
+  100% {
+    transform: scaleY(0.55);
+    opacity: 0.72;
+  }
+
+  50% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+}
+
+@media (min-width: 1200px) {
+  .gallery-event__find-banner {
+    display: block;
+  }
+}
+
+@media (max-width: 1023px) {
+  .gallery-event__floating-actions--center {
+    display: flex;
+    bottom: 5.35rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .gallery-find__summary {
+    padding: 0.9rem;
+  }
+
+  .gallery-find__summary-actions,
+  .gallery-find-modal__footer {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .gallery-find__summary-button,
+  .gallery-find-modal__secondary-button,
+  .gallery-find-modal__primary-button {
+    width: 100%;
+  }
+
+  .gallery-event__floating-actions--center {
+    left: 50%;
+    right: auto;
+    bottom: 5.6rem;
+    width: calc(100% - 2rem);
+  }
+
+  .gallery-event__floating-button--find {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .gallery-find-modal {
+    padding: 0.85rem;
+  }
+
+  .gallery-find-modal__panel {
+    padding: 1rem;
+    border-radius: 1.2rem;
+  }
+}
+
