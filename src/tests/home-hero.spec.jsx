@@ -62,7 +62,7 @@ describe("HomePage", () => {
     expect(bandPhotoContainer).toBeTruthy();
     expect(document.querySelector("#hero-outline-filter")).toBeTruthy();
     expect(document.querySelector(".hero-copy-plate")).toBeTruthy();
-    expect(document.querySelector(".band-photo").getAttribute("src")).toBe("/images/band.png");
+    expect(document.querySelector(".band-photo").getAttribute("src")).toBe("/images/general/band.png");
     expect([...fillTitle.querySelectorAll("span")].map((node) => node.textContent.trim())).toEqual([
       "FORRÓ DO",
       "HORIZONTE",
