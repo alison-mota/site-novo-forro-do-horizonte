@@ -26,7 +26,9 @@ function resolveProfile(group) {
 
 function byDirection(distance, direction, invert = false) {
   const sign = direction >= 0 ? 1 : -1;
-  return invert ? distance * sign * -1 : distance * sign;
+  const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
+  const factor = isMobile ? 0 : 1; // Disable horizontal motion on mobile to prevent overflow
+  return invert ? distance * sign * -1 * factor : distance * sign * factor;
 }
 
 export function getGroupMotion(group, direction = 1) {

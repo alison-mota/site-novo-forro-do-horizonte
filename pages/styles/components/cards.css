@@ -59,6 +59,8 @@
   font-weight: 700;
   color: var(--color-ink);
   transition: color 0.2s ease;
+  overflow-wrap: break-word;
+  hyphens: auto;
 }
 
 .event-card:hover .event-card__title {
@@ -87,6 +89,16 @@
   .event-card__layout {
     flex-direction: row;
     align-items: center;
+  }
+}
+
+@media (max-width: 767px) {
+  .event-card__action {
+    width: 100%;
+  }
+  
+  .event-card__action .button {
+    width: 100%;
   }
 }
 
@@ -546,7 +558,7 @@
   }
 
   .gallery-event__grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 0.5rem;
   }
 
@@ -597,8 +609,8 @@
 
   .gallery-lightbox__close {
     position: fixed;
-    top: 1.5rem;
-    right: 1.5rem;
+    top: max(1.5rem, env(safe-area-inset-top));
+    right: max(1.5rem, env(safe-area-inset-right));
     z-index: 90;
   }
 

@@ -48,6 +48,7 @@
 .bio-text {
   margin: 0;
   font-family: var(--font-sans);
+  font-size: 1rem;
   line-height: 1.8;
   color: rgba(26, 26, 26, 0.7);
 }
@@ -83,6 +84,13 @@
   overflow: hidden;
   border: 1px solid rgba(26, 26, 26, 0.1);
   border-radius: 0.5rem;
+}
+
+@media (max-width: 767px) {
+  .bio-media__frame {
+    aspect-ratio: 1 / 1;
+    max-width: 20rem;
+  }
 }
 
 .bio-media__image {

@@ -91,6 +91,7 @@
   width: 100%;
   max-width: 34rem;
   padding: 1rem 0 0;
+  margin: 0 auto;
 }
 
 .contact-chat__messages {
@@ -365,8 +366,8 @@
 
 @media (max-width: 768px) {
   .contact-chat__messages {
-    min-height: 18rem;
-    max-height: 22rem;
+    min-height: 150px;
+    max-height: 50vh;
     padding-inline: 0.75rem;
   }
 

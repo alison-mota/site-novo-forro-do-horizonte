@@ -2,3 +2,10 @@
   opacity: 0.2;
   --sun-base-y: 20%;
 }
+
+@media (max-width: 768px) {
+  .page-shell--contato .page-content--centered {
+    justify-content: flex-start;
+    padding-top: 85px;
+  }
+}
