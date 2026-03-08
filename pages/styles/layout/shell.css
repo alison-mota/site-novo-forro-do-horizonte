@@ -20,6 +20,12 @@
   padding: 104px 24px 60px;
 }
 
+@media (max-width: 768px) {
+  .page-content {
+    padding-top: 85px;
+  }
+}
+
 .content-scroll {
   height: 100%;
   overflow-y: auto;

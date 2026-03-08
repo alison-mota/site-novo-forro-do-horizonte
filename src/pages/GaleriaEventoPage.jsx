@@ -41,6 +41,36 @@ function ArrowUpIcon() {
   );
 }
 
+function ChevronLeftIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" className="gallery-lightbox__icon">
+      <path
+        d="M15 18l-6-6 6-6"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+function ChevronRightIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" className="gallery-lightbox__icon">
+      <path
+        d="M9 18l6-6-6-6"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
 export default function GaleriaEventoPage({ direction = 1 }) {
   const { eventSlug } = useParams();
   const navigate = useNavigate();
@@ -353,18 +383,14 @@ export default function GaleriaEventoPage({ direction = 1 }) {
         }, 100);
         return;
       } catch {
-        const link = document.createElement("a");
-        link.href = downloadUrl;
-        link.download = `foto-${Date.now()}.jpg`;
-        link.target = "_self";
-        document.body.appendChild(link);
-        link.click();
+        const iframe = document.createElement("iframe");
+        iframe.style.display = "none";
+        iframe.src = downloadUrl;
+        document.body.appendChild(iframe);
 
         window.setTimeout(() => {
-          if (document.body.contains(link)) {
-            document.body.removeChild(link);
-          }
-        }, 1000);
+          document.body.removeChild(iframe);
+        }, 20000);
         return;
       }
     }
@@ -481,7 +507,6 @@ export default function GaleriaEventoPage({ direction = 1 }) {
                     className="gallery-event__thumb-image"
                     loading="lazy"
                   />
-                  <span className="gallery-event__thumb-label">Foto {label}</span>
                 </button>
               );
             })}
@@ -573,23 +598,27 @@ export default function GaleriaEventoPage({ direction = 1 }) {
                   FECHAR
                 </button>
 
-                {navigableImages.length > 1 ? (
+                {navigableImages.length > 1 && currentImageIndex > 0 ? (
                   <button
                     type="button"
                     className="gallery-lightbox__nav gallery-lightbox__nav--prev"
                     onClick={showPreviousImage}
+                    aria-label="Foto anterior"
                   >
-                    ANTERIOR
+                    <span className="gallery-lightbox__nav-text">ANTERIOR</span>
+                    <span className="gallery-lightbox__nav-icon"><ChevronLeftIcon /></span>
                   </button>
                 ) : null}
 
-                {navigableImages.length > 1 ? (
+                {navigableImages.length > 1 && currentImageIndex < navigableImages.length - 1 ? (
                   <button
                     type="button"
                     className="gallery-lightbox__nav gallery-lightbox__nav--next"
                     onClick={showNextImage}
+                    aria-label="Próxima foto"
                   >
-                    PRÓXIMA
+                    <span className="gallery-lightbox__nav-text">PRÓXIMA</span>
+                    <span className="gallery-lightbox__nav-icon"><ChevronRightIcon /></span>
                   </button>
                 ) : null}
 
