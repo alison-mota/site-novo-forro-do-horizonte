@@ -6,7 +6,7 @@ export const eventCatalog = [
     date: "17 de Maio, 2025",
     location: "Faiska, Uberlândia - MG",
     driveFolderLink: "https://drive.google.com/drive/folders/1ABn_HMg9B3OzunBGxlNu19W96L_jAbe0",
-    previewImage: "/images/events/cover/aniversario-1-ano.png",
+    previewImage: `${import.meta.env.BASE_URL}images/events/cover/aniversario-1-ano.png`,
     images: [],
   },
   {
@@ -16,7 +16,7 @@ export const eventCatalog = [
     date: "30 de Dezembro, 2025",
     location: "Dboche Pub Show",
     driveFolderLink: "https://drive.google.com/drive/folders/1tm5L5Bs5-f25vk_0J-4dQITIiQZYOFQD",
-    previewImage: "/images/events/cover/ultimo-forro-do-ano-no-dboche.jpeg",
+    previewImage: `${import.meta.env.BASE_URL}images/events/cover/ultimo-forro-do-ano-no-dboche.jpeg`,
     images: [],
   },
   {
@@ -26,7 +26,7 @@ export const eventCatalog = [
     date: "30 de Janeiro, 2026",
     location: "Pimenta Bar e Eventos",
     driveFolderLink: "https://drive.google.com/drive/folders/1g3QvjEn_E6-Gt7AT2T5TLRZvj91ap98v",
-    previewImage: "/images/events/cover/forró-com-pimenta-janeiro-2026.jpg",
+    previewImage: `${import.meta.env.BASE_URL}images/events/cover/forró-com-pimenta-janeiro-2026.jpg`,
     images: [],
   },
 ];
