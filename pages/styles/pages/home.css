@@ -2,3 +2,24 @@
   opacity: 0.92;
   --sun-base-y: 0px;
 }
+
+@media (max-width: 768px) {
+  .page-shell--home .sun-wrap {
+    --sun-base-y: -30% !important;
+  }
+
+  /* Force full screen on mobile to prevent scrolling and fill viewport */
+  .page-shell--home {
+    position: fixed !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100dvh !important;
+    max-width: none !important;
+    max-height: none !important;
+    margin: 0 !important;
+    border: none !important;
+    clip-path: none !important;
+    overflow: hidden !important;
+    z-index: 100;
+  }
+}

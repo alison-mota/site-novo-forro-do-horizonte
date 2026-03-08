@@ -66,13 +66,104 @@
   margin-top: 0.25rem;
 }
 
+/* Mobile Menu Toggle */
+.site-nav__toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  width: 2rem;
+  height: 2rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 40;
+  padding: 0;
+}
+
+.site-nav__toggle-bar {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background-color: var(--color-ink);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  transform-origin: center;
+}
+
+.site-nav--open .site-nav__toggle-bar:first-child {
+  transform: translateY(4px) rotate(45deg);
+}
+
+.site-nav--open .site-nav__toggle-bar:last-child {
+  transform: translateY(-4px) rotate(-45deg);
+}
+
+/* Mobile Menu Overlay */
+.site-nav-mobile {
+  display: none;
+}
+
 @media (max-width: 768px) {
   .site-nav {
-    gap: 1rem;
-    padding: 0.55rem 0.75rem;
+    padding: 0.75rem 1rem;
+    align-items: center;
   }
 
-  .site-nav__group {
-    gap: 1rem;
+  .site-nav__group--desktop,
+  .site-nav__desktop-only {
+    display: none;
+  }
+
+  .site-nav__toggle {
+    display: flex;
+  }
+
+  .site-nav-mobile {
+    display: flex;
+    position: fixed;
+    inset: 0;
+    background: var(--color-sand);
+    z-index: 25;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+  }
+
+  .site-nav-mobile__content {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    text-align: center;
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .site-nav__link--mobile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--color-ink);
+    text-decoration: none;
+    padding: 1rem;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+  }
+
+  .site-nav__link--mobile:last-child {
+    border-bottom: none;
+  }
+
+  .site-nav__link--mobile .site-nav__sublabel {
+    font-family: var(--font-sans);
+    font-size: 0.875rem;
+    font-weight: 400;
+    opacity: 0.7;
+    margin-top: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
   }
 }

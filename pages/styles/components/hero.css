@@ -24,6 +24,8 @@
   object-fit: contain;
   object-position: bottom center;
   filter: saturate(0.85) contrast(1.05) drop-shadow(0 10px 20px rgba(0, 0, 0, 0.15));
+  mask-image: linear-gradient(to top, transparent 0%, black 40%);
+  -webkit-mask-image: linear-gradient(to top, transparent 0%, black 40%);
 }
 
 .band-photo-overlay {
@@ -35,14 +37,7 @@
 }
 
 .hero-copy-plate {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  height: 320px;
-  background: linear-gradient(to top, rgba(246, 241, 231, 0.95) 10%, rgba(246, 241, 231, 0.6) 40%, rgba(246, 241, 231, 0) 100%);
-  z-index: 7;
-  pointer-events: none;
+  display: none;
 }
 
 .hero-content {
@@ -130,6 +125,13 @@
   gap: 1rem;
 }
 
+/* Equalize button widths based on the larger one */
+.hero-buttons .button {
+  min-width: 18rem; /* Approx 288px, covers "Ver fotos dos eventos" */
+  text-align: center;
+  justify-content: center;
+}
+
 @media (min-width: 640px) {
   .hero-buttons {
     flex-direction: row;
@@ -190,5 +192,49 @@
 @media (max-width: 640px) {
   .home-editorial-footer__center {
     display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-title,
+  .hero-title-outline {
+    /* "Never smaller than screen" - interpreted as full width scaling */
+    font-size: 14vw;
+  }
+
+  .hero-title-wrapper {
+    margin-bottom: 5vh;
+  }
+
+  .hero-content {
+    /* "Move buttons down, logo above footer" */
+    /* Footer is ~1.5rem bottom + height. Setting bottom: 4.5rem places content just above it. */
+    bottom: 7rem;
+    padding: 0 1rem;
+  }
+
+  .band-photo-container {
+    align-items: flex-end;
+    height: 100%;
+    bottom: 0;
+  }
+
+  .band-photo {
+    object-position: center bottom;
+    max-height: 100% !important;
+    height: auto !important;
+    width: 80%;
+    margin-bottom: 25vh;
+  }
+
+  .hero-subtitle {
+    font-size: 1.125rem;
+    max-width: 90%;
+    margin-bottom: 1.5rem;
+  }
+  
+  .hero-buttons .button {
+    width: 100%;
+    max-width: 22rem; /* Prevent excessive width on larger mobiles */
   }
 }

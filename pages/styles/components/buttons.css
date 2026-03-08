@@ -70,6 +70,7 @@
 .button--small {
   border: 1px solid rgba(26, 26, 26, 0.3);
   color: var(--color-ink);
+  background-color: var(--color-sand);
 }
 
 .button--secondary:hover,
