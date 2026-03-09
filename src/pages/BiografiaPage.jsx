@@ -33,7 +33,7 @@ export default function BiografiaPage({ direction = 1 }) {
 
         <motion.div className="bio-media" {...mediaMotion}>
           <div className="bio-media__frame">
-            <img src={`${import.meta.env.BASE_URL}images/general/band.png`} alt="Banda Forró do Horizonte" className="bio-media__image" />
+            <img src={`${import.meta.env.BASE_URL}images/general/band-2.png`} alt="Banda Forró do Horizonte" className="bio-media__image" />
             <div className="bio-media__overlay"></div>
           </div>
         </motion.div>
