@@ -1,0 +1,40 @@
+/* Shimmer Animation for Bio Button */
+.bio-cta__shimmer-btn {
+  position: relative;
+  display: inline-flex;
+  border-radius: 9999px;
+  z-index: 1;
+  overflow: hidden; /* Clip the shimmer to button shape */
+  vertical-align: middle; /* Prevent line height expansion */
+}
+
+.bio-cta__shimmer-btn::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.4) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: skewX(-25deg);
+  animation: shimmer 3s infinite;
+  pointer-events: none;
+  z-index: 20;
+}
+
+@keyframes shimmer {
+  0% {
+    left: -100%;
+  }
+  20% {
+    left: 200%;
+  }
+  100% {
+    left: 200%;
+  }
+}

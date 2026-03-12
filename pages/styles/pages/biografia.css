@@ -1,114 +1,318 @@
+/* --- Global Page Settings --- */
 .page-shell--biografia .sun-wrap {
-  opacity: 0.3;
-  --sun-base-y: -20%;
+  opacity: 0.6;
+  --sun-base-y: -10%;
+  mix-blend-mode: soft-light;
 }
 
-.bio-layout {
+.bio-container {
   display: flex;
   flex-direction: column;
-  gap: 3rem;
-  max-width: 64rem;
-  margin: 0 auto;
-  padding-top: 3rem;
-}
-
-@media (min-width: 768px) {
-  .bio-layout {
-    flex-direction: row;
-    align-items: flex-start;
-  }
-}
-
-.bio-copy,
-.bio-media {
-  flex: 1;
-}
-
-.bio-title {
-  margin: 0 0 1.5rem;
-  font-family: var(--font-display);
-  font-size: clamp(2.5rem, 4vw, 3.5rem);
-  font-weight: 800;
-  line-height: 1.05;
-  color: var(--color-ink);
-}
-
-.bio-title__accent {
-  color: var(--color-orange);
-}
-
-.bio-lead {
-  margin: 0 0 1rem;
-  font-family: var(--font-sans);
-  font-size: 1.125rem;
-  line-height: 1.7;
-  color: rgba(26, 26, 26, 0.8);
-}
-
-.bio-text {
-  margin: 0;
-  font-family: var(--font-sans);
-  font-size: 1rem;
-  line-height: 1.8;
-  color: rgba(26, 26, 26, 0.7);
-}
-
-.bio-members {
-  padding-top: 1rem;
-}
-
-.bio-members__title {
-  margin: 0 0 0.5rem;
-  font-family: var(--font-display);
-  font-size: 1.25rem;
-  font-weight: 700;
-}
-
-.bio-members__list {
-  margin: 0;
-  padding-left: 1rem;
-  font-family: var(--font-sans);
-  color: rgba(26, 26, 26, 0.8);
-}
-
-.bio-members__list strong {
-  color: var(--color-orange);
-}
-
-.bio-media__frame {
-  position: relative;
-  aspect-ratio: 3 / 4;
+  gap: 8rem;
   width: 100%;
-  max-width: 28rem;
+  max-width: 100%;
   margin: 0 auto;
+  padding-bottom: 4rem;
+}
+
+/* --- 1. Hero Editorial --- */
+.bio-hero {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 80vh;
+  margin-top: -4rem; /* Pull up to integrate with nav area */
+}
+
+.bio-hero__header {
+  position: relative;
+  z-index: 20;
+  padding-top: 6rem;
+  text-align: center;
+}
+
+.bio-hero__meta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  color: var(--color-orange);
+  text-transform: uppercase;
+}
+
+.bio-hero__meta-divider {
+  opacity: 0.4;
+}
+
+.bio-hero__title-wrapper {
+  position: relative;
+  display: inline-grid;
+  width: fit-content;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.bio-hero__title,
+.bio-hero__title-outline {
+  grid-area: 1 / 1;
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 9vw, 7.5rem);
+  font-weight: 800;
+  line-height: 0.85;
+  letter-spacing: -0.04em;
+}
+
+.bio-hero__title {
+  position: relative;
+  z-index: 6;
+  color: #41D4D4;
+}
+
+.bio-hero__title-outline {
+  position: relative;
+  z-index: 25;
+  pointer-events: none;
+  color: transparent;
+  filter: url(#bio-hero-outline-filter);
+}
+
+.bio-hero__title .d-block,
+.bio-hero__title-outline .d-block {
+  display: block;
+}
+
+.bio-hero__title .text-indent,
+.bio-hero__title-outline .text-indent {
+  margin-left: 1.5ch;
+}
+
+.bio-hero__image-wrapper {
+  position: relative;
+  z-index: 10;
+  margin-top: -3rem; /* Overlap with title */
+  width: 100%;
+  max-width: 54rem;
+  aspect-ratio: 16 / 10;
+  margin-inline: auto;
+  border-radius: 2px;
   overflow: hidden;
-  border: 1px solid rgba(26, 26, 26, 0.1);
-  border-radius: 0.5rem;
 }
 
-@media (max-width: 767px) {
-  .bio-media__frame {
-    aspect-ratio: 1 / 1;
-    max-width: 20rem;
-  }
-}
-
-.bio-media__image {
+.bio-hero__image {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: grayscale(1);
-  transition: filter 0.7s ease;
+  filter: grayscale(100%) contrast(1.1) sepia(20%) hue-rotate(-10deg) saturate(1.5);
+  mix-blend-mode: multiply;
+  opacity: 0.95;
 }
 
-.bio-media__frame:hover .bio-media__image {
-  filter: grayscale(0);
-}
-
-.bio-media__overlay {
+.bio-hero__overlay {
   position: absolute;
   inset: 0;
-  background: rgba(244, 122, 42, 0.1);
-  mix-blend-mode: multiply;
+  background: linear-gradient(to bottom, transparent 0%, rgba(246, 241, 231, 0.4) 100%);
+  mix-blend-mode: screen;
   pointer-events: none;
+}
+
+/* --- 2. History Section --- */
+.bio-section {
+  width: 100%;
+  max-width: 72rem;
+  margin: 0 auto;
+}
+
+.bio-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+}
+
+.bio-label {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: rgba(26, 26, 26, 0.4);
+  text-transform: uppercase;
+  border-top: 1px solid rgba(26, 26, 26, 0.2);
+  padding-top: 1rem;
+}
+
+.bio-grid__col--text p {
+  font-family: var(--font-sans);
+  font-size: 1.125rem;
+  line-height: 1.7;
+  color: rgba(26, 26, 26, 0.85);
+  margin-bottom: 1.5rem;
+}
+
+.bio-grid__col--text p:first-of-type {
+  font-size: 1.35rem;
+  font-weight: 500;
+  color: var(--color-ink);
+}
+
+.bio-quote {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--color-orange);
+  margin: 0;
+}
+
+/* --- 3. Influences Section --- */
+.bio-section__header {
+  margin-bottom: 3rem;
+}
+
+.bio-section__title {
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: rgba(26, 26, 26, 0.4);
+  text-transform: uppercase;
+  margin: 0 0 1rem;
+}
+
+.bio-line {
+  width: 100%;
+  height: 1px;
+  background: rgba(26, 26, 26, 0.15);
+}
+
+.bio-influences__list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  width: 100%;
+}
+
+.bio-fit-line {
+  font-family: var(--font-display);
+  font-weight: 800;
+  color: rgba(26, 26, 26, 0.15);
+  text-transform: uppercase;
+  transition: color 0.3s ease;
+  cursor: default;
+}
+
+.bio-fit-line:hover {
+  color: var(--color-orange);
+}
+
+.bio-fit-line:nth-child(2n) {
+  color: rgba(26, 26, 26, 0.3);
+}
+
+.bio-fit-line:nth-child(3n) {
+  color: rgba(26, 26, 26, 0.5);
+}
+
+/* --- 4. Members Section --- */
+.bio-members__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+}
+
+.bio-member {
+  display: flex;
+  flex-direction: column;
+}
+
+.bio-member__line {
+  width: 100%;
+  height: 1px;
+  background: var(--color-ink);
+  margin-bottom: 1rem;
+  transform-origin: left;
+}
+
+.bio-member__name {
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--color-ink);
+  margin: 0 0 0.25rem;
+  text-transform: uppercase;
+}
+
+.bio-member__role {
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  color: rgba(26, 26, 26, 0.6);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0;
+}
+
+/* --- 5. CTA Section --- */
+.bio-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 4rem 0;
+}
+
+.bio-cta__text {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--color-ink);
+  margin-bottom: 2.5rem;
+}
+
+/* --- Responsive Desktop --- */
+@media (min-width: 1024px) {
+  .bio-grid {
+    grid-template-columns: 1fr 2fr 2fr;
+    gap: 4rem;
+  }
+
+  .bio-members__grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+  
+  .bio-hero__image-wrapper {
+    margin-top: -5rem;
+  }
+}
+
+/* --- Mobile Adjustments --- */
+@media (max-width: 768px) {
+  .bio-container {
+    gap: 5rem;
+  }
+
+  .bio-hero {
+    min-height: auto;
+  }
+
+  .bio-hero__title .text-indent {
+    margin-left: 0;
+  }
+  
+  .bio-hero__image-wrapper {
+    aspect-ratio: 1 / 1.1;
+    margin-top: 1rem;
+  }
+
+  .bio-quote {
+    font-size: 1.75rem;
+    padding-left: 1rem;
+    border-left: 3px solid var(--color-orange);
+  }
 }

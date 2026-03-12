@@ -16,6 +16,7 @@ export default function SunLayer({ routeId }) {
           duration: 0.8,
           ease: breezeEase,
         }}
+        style={{ position: "absolute" }} // Ensure non-static for motion
       >
         <SunBackdrop
           style={{
