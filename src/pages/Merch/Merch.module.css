@@ -1,8 +1,18 @@
 .merchRoot {
-  min-block-size: 100vh;
   background: var(--fdh-merch-bg);
   color: var(--fdh-merch-on-surface);
   font-family: var(--fdh-merch-font-ui);
+}
+
+.snapRoot {
+  block-size: 100dvh;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+  scrollbar-width: none;
+}
+
+.snapRoot::-webkit-scrollbar {
+  display: none;
 }
 
 .main {

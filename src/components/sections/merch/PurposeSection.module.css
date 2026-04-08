@@ -1,7 +1,13 @@
 .section {
   background: var(--fdh-merch-surface-dark);
   color: var(--fdh-merch-on-dark);
-  padding: var(--fdh-merch-space-4xl) var(--fdh-merch-space-lg);
+  min-block-size: 100dvh;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  display: grid;
+  align-items: center;
+  padding: clamp(var(--fdh-merch-space-xl), 6dvh, var(--fdh-merch-space-3xl))
+    var(--fdh-merch-space-lg);
 }
 
 .container {
@@ -9,7 +15,7 @@
   margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr;
-  gap: var(--fdh-merch-space-3xl);
+  gap: clamp(var(--fdh-merch-space-lg), 4dvh, var(--fdh-merch-space-2xl));
   align-items: center;
 }
 
@@ -21,7 +27,7 @@
 .title {
   margin: 0;
   font-family: var(--fdh-merch-font-display);
-  font-size: clamp(2.2rem, 7vw, 4.6rem);
+  font-size: clamp(1.9rem, 5.3vw, 3.6rem);
   text-transform: uppercase;
   letter-spacing: -0.03em;
   line-height: 0.95;
@@ -35,8 +41,8 @@
   margin: 0;
   max-width: 60ch;
   font-family: var(--fdh-merch-font-ui);
-  font-size: 1.02rem;
-  line-height: 1.7;
+  font-size: clamp(0.88rem, 1vw, 0.98rem);
+  line-height: 1.55;
   color: var(--fdh-merch-on-dark-muted);
 }
 
@@ -67,13 +73,12 @@
   margin: 0;
   border: 1px solid var(--fdh-merch-border-dark);
   border-radius: var(--fdh-merch-radius-sm);
-  overflow: hidden;
 }
 
 .image {
   inline-size: 100%;
-  block-size: 100%;
-  max-block-size: 620px;
+  block-size: auto;
+  max-block-size: min(52dvh, 540px);
   object-fit: cover;
   filter: brightness(0.78);
   transition: filter var(--fdh-merch-transition-slow);

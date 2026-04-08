@@ -9,7 +9,7 @@ import styles from "./Merch.module.css";
 
 export default function MerchPage() {
   return (
-    <div className={styles.merchRoot}>
+    <div className={`${styles.merchRoot} ${styles.snapRoot}`}>
       <MerchNav />
       <main className={styles.main}>
         <MerchHero />

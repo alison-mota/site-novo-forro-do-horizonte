@@ -1,5 +1,11 @@
 .section {
-  padding: var(--fdh-merch-space-4xl) var(--fdh-merch-space-lg);
+  min-block-size: 100dvh;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  display: grid;
+  align-items: center;
+  padding: clamp(var(--fdh-merch-space-xl), 6dvh, var(--fdh-merch-space-3xl))
+    var(--fdh-merch-space-lg);
 }
 
 .container {
@@ -8,10 +14,10 @@
 }
 
 .title {
-  margin: 0 0 var(--fdh-merch-space-2xl);
+  margin: 0 0 clamp(var(--fdh-merch-space-md), 3dvh, var(--fdh-merch-space-xl));
   text-align: center;
   font-family: var(--fdh-merch-font-display);
-  font-size: clamp(1.8rem, 4vw, 3rem);
+  font-size: clamp(1.6rem, 3.2vw, 2.3rem);
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: -0.02em;
@@ -20,14 +26,13 @@
 
 .list {
   display: grid;
-  gap: var(--fdh-merch-space-sm);
+  gap: clamp(var(--fdh-merch-space-xs), 1.2dvh, var(--fdh-merch-space-sm));
 }
 
 .item {
   border: 1px solid var(--fdh-merch-border-subtle);
   border-radius: var(--fdh-merch-radius-sm);
   background: var(--fdh-merch-surface-low);
-  overflow: hidden;
 }
 
 .trigger {
@@ -36,7 +41,7 @@
   background: transparent;
   color: var(--fdh-merch-on-surface);
   font-family: var(--fdh-merch-font-display);
-  font-size: 0.96rem;
+  font-size: clamp(0.8rem, 0.95vw, 0.9rem);
   font-weight: 700;
   letter-spacing: 0.01em;
   text-transform: uppercase;
@@ -44,7 +49,7 @@
   align-items: center;
   justify-content: space-between;
   gap: var(--fdh-merch-space-md);
-  padding: var(--fdh-merch-space-lg);
+  padding: clamp(var(--fdh-merch-space-md), 1.8dvh, var(--fdh-merch-space-lg));
   cursor: pointer;
   transition: background var(--fdh-merch-transition-fast), opacity var(--fdh-merch-transition-fast), transform var(--fdh-merch-transition-fast);
 }
@@ -81,5 +86,6 @@
   margin: 0;
   color: var(--fdh-merch-on-surface-muted);
   font-family: var(--fdh-merch-font-ui);
-  line-height: 1.7;
+  font-size: clamp(0.82rem, 0.94vw, 0.9rem);
+  line-height: 1.5;
 }

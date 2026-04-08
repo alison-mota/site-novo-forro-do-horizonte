@@ -1,5 +1,11 @@
 .section {
-  padding: calc(var(--fdh-merch-space-4xl) + var(--fdh-merch-space-xl)) var(--fdh-merch-space-lg) var(--fdh-merch-space-3xl);
+  min-block-size: 100dvh;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  display: grid;
+  align-items: center;
+  padding: clamp(var(--fdh-merch-space-xl), 6dvh, var(--fdh-merch-space-3xl))
+    var(--fdh-merch-space-lg);
 }
 
 .container {
@@ -7,8 +13,9 @@
   margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr;
-  gap: var(--fdh-merch-space-2xl);
+  gap: clamp(var(--fdh-merch-space-lg), 4dvh, var(--fdh-merch-space-2xl));
   align-items: center;
+  inline-size: 100%;
 }
 
 .content {
@@ -32,7 +39,7 @@
 .title {
   margin: 0;
   font-family: var(--fdh-merch-font-display);
-  font-size: clamp(2.2rem, 8vw, 4.8rem);
+  font-size: clamp(2rem, 6.1vw, 4rem);
   line-height: 0.98;
   letter-spacing: -0.03em;
   color: var(--fdh-merch-on-surface);
@@ -49,8 +56,8 @@
   margin: 0;
   font-family: var(--fdh-merch-font-ui);
   color: var(--fdh-merch-on-surface-muted);
-  font-size: 1.06rem;
-  line-height: 1.6;
+  font-size: clamp(0.94rem, 1.2vw, 1.02rem);
+  line-height: 1.5;
 }
 
 .cta {
@@ -95,7 +102,7 @@
 }
 
 .heroImage {
-  inline-size: min(100%, 560px);
+  inline-size: min(100%, 470px);
   aspect-ratio: 4 / 5;
   object-fit: cover;
   border-radius: var(--fdh-merch-radius-sm);

@@ -1,5 +1,11 @@
 .section {
-  padding: var(--fdh-merch-space-4xl) var(--fdh-merch-space-lg);
+  min-block-size: 100dvh;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  display: grid;
+  align-items: center;
+  padding: clamp(var(--fdh-merch-space-xl), 6dvh, var(--fdh-merch-space-3xl))
+    var(--fdh-merch-space-lg);
 }
 
 .container {
@@ -7,7 +13,7 @@
   margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr;
-  gap: var(--fdh-merch-space-3xl);
+  gap: clamp(var(--fdh-merch-space-lg), 4dvh, var(--fdh-merch-space-2xl));
 }
 
 .gallery {
@@ -18,13 +24,12 @@
 .mainImageWrap {
   background: var(--fdh-merch-surface-strong);
   border-radius: var(--fdh-merch-radius-sm);
-  overflow: hidden;
 }
 
 .mainImage {
   inline-size: 100%;
-  block-size: 100%;
-  max-block-size: 680px;
+  block-size: auto;
+  max-block-size: min(52dvh, 540px);
   object-fit: cover;
 }
 
@@ -39,7 +44,6 @@
   border-radius: var(--fdh-merch-radius-xs);
   background: var(--fdh-merch-surface-strong);
   padding: 0;
-  overflow: hidden;
   cursor: pointer;
   transition: border-color var(--fdh-merch-transition-fast), transform var(--fdh-merch-transition-fast), opacity var(--fdh-merch-transition-fast);
 }
@@ -75,7 +79,7 @@
 
 .content {
   display: grid;
-  gap: var(--fdh-merch-space-xl);
+  gap: clamp(var(--fdh-merch-space-md), 2.6dvh, var(--fdh-merch-space-lg));
 }
 
 .header {
@@ -98,14 +102,14 @@
   text-transform: uppercase;
   letter-spacing: -0.02em;
   line-height: 1.05;
-  font-size: clamp(2rem, 4.5vw, 3.4rem);
+  font-size: clamp(1.7rem, 3.2vw, 2.6rem);
   color: var(--fdh-merch-on-surface);
 }
 
 .price {
   margin: 0;
   font-family: var(--fdh-merch-font-display);
-  font-size: 2rem;
+  font-size: clamp(1.4rem, 2.3vw, 1.8rem);
   font-weight: 800;
   color: var(--fdh-merch-primary);
 }
@@ -121,7 +125,7 @@
   font-family: var(--fdh-merch-font-display);
   text-transform: uppercase;
   letter-spacing: 0.14em;
-  font-size: 0.74rem;
+  font-size: clamp(0.66rem, 0.7vw, 0.74rem);
   color: var(--fdh-merch-on-surface);
 }
 
@@ -140,7 +144,7 @@
   gap: var(--fdh-merch-space-xs);
   color: var(--fdh-merch-on-surface-muted);
   font-family: var(--fdh-merch-font-ui);
-  font-size: 0.95rem;
+  font-size: clamp(0.82rem, 0.96vw, 0.92rem);
 }
 
 .dot {
@@ -200,9 +204,9 @@
   background: var(--fdh-merch-btn-primary-bg);
   color: var(--fdh-merch-btn-primary-text);
   box-shadow: var(--fdh-merch-btn-primary-shadow);
-  padding: var(--fdh-merch-space-lg);
+  padding: clamp(var(--fdh-merch-space-md), 2dvh, var(--fdh-merch-space-lg));
   font-family: var(--fdh-merch-font-display);
-  font-size: 0.9rem;
+  font-size: clamp(0.75rem, 0.92vw, 0.86rem);
   font-weight: 800;
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -233,7 +237,7 @@
   color: var(--fdh-merch-on-surface-muted);
   text-align: center;
   font-family: var(--fdh-merch-font-ui);
-  font-size: 0.82rem;
+  font-size: clamp(0.72rem, 0.82vw, 0.8rem);
   font-style: italic;
 }
 

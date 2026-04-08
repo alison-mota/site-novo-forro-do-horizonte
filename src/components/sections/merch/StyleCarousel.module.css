@@ -1,6 +1,12 @@
 .section {
   background: var(--fdh-merch-surface-low);
-  padding: var(--fdh-merch-space-4xl) var(--fdh-merch-space-lg);
+  min-block-size: 100dvh;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  display: grid;
+  align-items: center;
+  padding: clamp(var(--fdh-merch-space-xl), 6dvh, var(--fdh-merch-space-3xl))
+    var(--fdh-merch-space-lg);
 }
 
 .container {
@@ -14,13 +20,13 @@
   justify-content: space-between;
   align-items: flex-end;
   gap: var(--fdh-merch-space-lg);
-  margin-block-end: var(--fdh-merch-space-2xl);
+  margin-block-end: clamp(var(--fdh-merch-space-md), 2.5dvh, var(--fdh-merch-space-xl));
 }
 
 .title {
   margin: 0;
   font-family: var(--fdh-merch-font-display);
-  font-size: clamp(1.8rem, 4vw, 3rem);
+  font-size: clamp(1.7rem, 3.4vw, 2.5rem);
   font-weight: 800;
   letter-spacing: -0.02em;
   text-transform: uppercase;
@@ -30,6 +36,7 @@
 .subtitle {
   margin: var(--fdh-merch-space-xs) 0 0;
   font-family: var(--fdh-merch-font-ui);
+  font-size: clamp(0.9rem, 1vw, 1rem);
   color: var(--fdh-merch-on-surface-muted);
 }
 
@@ -71,7 +78,7 @@
 
 .grid {
   display: grid;
-  gap: var(--fdh-merch-space-lg);
+  gap: clamp(var(--fdh-merch-space-sm), 2dvh, var(--fdh-merch-space-lg));
   grid-template-columns: repeat(1, minmax(0, 1fr));
 }
 
@@ -118,8 +125,7 @@
 .imageWrap {
   background: var(--fdh-merch-surface-strong);
   border-radius: var(--fdh-merch-radius-xs);
-  overflow: hidden;
-  aspect-ratio: 1 / 1;
+  aspect-ratio: 1 / 0.84;
   margin-block-end: var(--fdh-merch-space-lg);
 }
 
@@ -133,7 +139,7 @@
 .cardTitle {
   margin: 0;
   font-family: var(--fdh-merch-font-display);
-  font-size: 1.25rem;
+  font-size: clamp(1rem, 1.5vw, 1.2rem);
   font-weight: 700;
   letter-spacing: -0.01em;
   text-transform: uppercase;
@@ -143,7 +149,7 @@
 .cardSpec {
   margin: var(--fdh-merch-space-xs) 0 0;
   font-family: var(--fdh-merch-font-ui);
-  font-size: 0.8rem;
+  font-size: clamp(0.72rem, 0.88vw, 0.8rem);
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--fdh-merch-on-surface-muted);
