@@ -166,6 +166,7 @@ export default function ContatoPage({ direction = 1 }) {
   const initialState = useMemo(() => getInitialChatState(), []);
   const contentMotion = getGroupMotion("content", direction);
   const metaMotion = getGroupMotion("meta", direction);
+  const rootRef = useRef(null);
   const messagesEndRef = useRef(null);
   const typingTimeoutRef = useRef(null);
   const inputRef = useRef(null);
@@ -222,15 +223,43 @@ export default function ContatoPage({ direction = 1 }) {
     window.localStorage.setItem(CONTACT_CHAT_STORAGE_KEY, JSON.stringify(chatState));
   }, [answers, currentQuestionIndex, inputValue, lastUpdatedAt, messages, pendingBotQuestionIndex]);
 
-  useEffect(
-    () => () => {
-      if (typingTimeoutRef.current) {
-        window.clearTimeout(typingTimeoutRef.current);
+  useEffect(() => {
+    if (typeof window === "undefined") {
+      return;
+    }
+
+    try {
+      const viewportInfo = {
+        width: window.innerWidth,
+        height: window.innerHeight,
+        scrollX: window.scrollX,
+        scrollY: window.scrollY,
+        devicePixelRatio: window.devicePixelRatio,
+      };
+
+      let rootRect = null;
+      if (rootRef.current && typeof rootRef.current.getBoundingClientRect === "function") {
+        rootRect = rootRef.current.getBoundingClientRect();
       }
 
-      if (cacheExpiryTimeoutRef.current) {
-        window.clearTimeout(cacheExpiryTimeoutRef.current);
-      }
+      // mantido apenas para eventual depuração futura; pode ser removido se quiser console completamente limpo
+      // console.debug("[contato][mount]", { viewport: viewportInfo, root: rootRect });
+    } catch {
+      // ignore logging errors
+    }
+  }, []);
+
+  useEffect(
+    () => {
+      return () => {
+        if (typingTimeoutRef.current) {
+          window.clearTimeout(typingTimeoutRef.current);
+        }
+
+        if (cacheExpiryTimeoutRef.current) {
+          window.clearTimeout(cacheExpiryTimeoutRef.current);
+        }
+      };
     },
     [],
   );
@@ -275,8 +304,14 @@ export default function ContatoPage({ direction = 1 }) {
       return;
     }
 
-    textareaRef.current.style.height = "0px";
-    textareaRef.current.style.height = `${Math.min(textareaRef.current.scrollHeight, 220)}px`;
+    try {
+      const textarea = textareaRef.current;
+      textarea.style.height = "0px";
+      const targetHeight = `${Math.min(textarea.scrollHeight, 220)}px`;
+      textarea.style.height = targetHeight;
+    } catch {
+      // ignore logging errors
+    }
   }, [inputValue, isLastQuestion, readyToSendWhatsapp]);
 
   useEffect(() => {
@@ -285,7 +320,9 @@ export default function ContatoPage({ direction = 1 }) {
     }
 
     const activeField = isLastQuestion ? textareaRef.current : inputRef.current;
-    activeField?.focus();
+    if (activeField && typeof activeField.focus === "function") {
+      activeField.focus();
+    }
   }, [currentQuestionIndex, isBotTyping, isLastQuestion, readyToSendWhatsapp, isReviewModalOpen]);
 
   useEffect(() => {
@@ -431,7 +468,10 @@ export default function ContatoPage({ direction = 1 }) {
   }
 
   return (
-    <div className="content-scroll page-content page-content--centered">
+    <div
+      ref={rootRef}
+      className="content-scroll page-content page-content--chat"
+    >
       <motion.form className="contact-chat" onSubmit={handleSubmitMessage} {...contentMotion}>
         <div className="contact-chat__messages" role="log" aria-live="polite">
           {messages.map((message) => (

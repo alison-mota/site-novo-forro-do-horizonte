@@ -54,7 +54,7 @@ export default function AppShell() {
       cleanupScrollListener();
       observer.disconnect();
     };
-  }, [pathname]);
+  }, [pathname, routeId]);
 
   return (
     <>

@@ -53,15 +53,7 @@ export default function FitTextLine({
     layoutEffect: false
   });
 
-  // Logs fixos sobre a configuração da animação (úteis para depuração)
-  useEffect(() => {
-    console.log("--- DEBUG INFLUENCES ANIMATION ---");
-    console.log("Scroll start threshold:", ANIM_START);
-    console.log("Scroll end threshold:", ANIM_END);
-    console.log("TranslateX range:", X_OFFSET, "-> 0");
-    console.log("Blur range:", BLUR_MAX, "-> 0");
-    console.log("Opacity range:", OPACITY_START, "-> 1");
-  }, []);
+  // Logs fixos removidos após depuração
 
   // Animação mais suave e concentrada no começo do scroll da seção
   const opacity = useTransform(
@@ -118,11 +110,6 @@ export default function FitTextLine({
 
     setFontSize(finalSize);
 
-    // Logs de tipografia da linha (focados em leitura)
-    const approxRenderedWidth = (measuredWidth / baseSize) * finalSize;
-    console.log(`Line: "${text}"`);
-    console.log("Font-size:", finalSize.toFixed(2));
-    console.log("Rendered width (approx):", approxRenderedWidth.toFixed(2));
   };
 
   useLayoutEffect(() => {

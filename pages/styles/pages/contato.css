@@ -4,8 +4,26 @@
 }
 
 @media (max-width: 768px) {
-  .page-shell--contato .page-content--centered {
+  .page-shell--contato {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@media (min-width: 769px) {
+  .page-shell--contato .page-content--chat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .page-shell--contato .page-content--chat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     justify-content: flex-start;
-    padding-top: 85px;
   }
 }

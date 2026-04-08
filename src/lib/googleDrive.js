@@ -12,6 +12,9 @@ export function getGoogleDriveImageUrl(fileId, size = "full") {
   if (size === "thumbnail") {
     return `https://drive.google.com/thumbnail?id=${fileId}&sz=w1000-h1000`;
   }
+  if (size === "large") {
+    return `https://drive.google.com/thumbnail?id=${fileId}&sz=w1920`;
+  }
 
   return `https://drive.google.com/uc?export=view&id=${fileId}`;
 }

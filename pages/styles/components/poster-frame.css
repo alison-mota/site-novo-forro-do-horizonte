@@ -38,3 +38,17 @@
   background: rgba(26, 26, 26, 0.1);
   z-index: 30;
 }
+
+@media (max-width: 768px) {
+  .poster-frame {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100dvh;
+    max-width: none;
+    max-height: none;
+    margin: 0;
+    border: none;
+    clip-path: none;
+  }
+}

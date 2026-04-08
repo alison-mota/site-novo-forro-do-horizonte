@@ -86,6 +86,16 @@
 }
 
 @media (max-width: 768px) {
+  .page-main {
+    padding: 0;
+  }
+
+  .page-content {
+    padding-inline: 16px;
+  }
+}
+
+@media (max-width: 768px) {
   .page-content {
     padding-top: 85px;
   }

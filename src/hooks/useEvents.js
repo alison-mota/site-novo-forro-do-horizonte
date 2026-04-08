@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { eventCatalog } from "../data/events.js";
+import { eventCatalog, sortEventsByDate } from "../data/events.js";
 import { hasGoogleDriveApiKey, processEventWithDriveFolder } from "../lib/googleDrive.js";
 
 let cachedEvents = [];
@@ -11,14 +11,26 @@ async function initializeEvents() {
   }
 
   if (!loadingPromise) {
-    loadingPromise = Promise.all(eventCatalog.map((event) => processEventWithDriveFolder(event)))
-      .then((events) => {
-        cachedEvents = events;
-        return events;
-      })
-      .finally(() => {
-        loadingPromise = null;
-      });
+    loadingPromise = (async () => {
+      // Pré-carrega somente o evento mais recente com dados do Google Drive.
+      const [latestEvent] = sortEventsByDate(eventCatalog);
+
+      if (!latestEvent) {
+        cachedEvents = eventCatalog;
+        return cachedEvents;
+      }
+
+      const processedLatest = await processEventWithDriveFolder(latestEvent);
+
+      const enrichedEvents = eventCatalog.map((event) =>
+        event.id === processedLatest.id ? processedLatest : event,
+      );
+
+      cachedEvents = enrichedEvents;
+      return enrichedEvents;
+    })().finally(() => {
+      loadingPromise = null;
+    });
   }
 
   return loadingPromise;
@@ -34,7 +46,7 @@ export function useEvents() {
 
     if (!hasGoogleDriveApiKey()) {
       setEvents(eventCatalog);
-      setError("A chave VITE_GOOGLE_DRIVE_API_KEY não está configurada.");
+      setError("A integração com o Google Drive não está configurada.");
       setIsLoading(false);
       return () => {
         active = false;

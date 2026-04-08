@@ -4,7 +4,13 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { generateEventSlug } from "../data/events.js";
 import { getGroupMotion } from "../lib/motion.js";
+import {
+  getGoogleDriveImageUrl,
+  hasGoogleDriveApiKey,
+  processEventWithDriveFolder,
+} from "../lib/googleDrive.js";
 import { useEvents } from "../hooks/useEvents.js";
+import ForroLoading from "../components/ForroLoading.jsx";
 import GalleryFindPhotosCta from "../components/GalleryFindPhotosCta.jsx";
 import GalleryFindPhotosModal from "../components/GalleryFindPhotosModal.jsx";
 
@@ -86,6 +92,11 @@ export default function GaleriaEventoPage({ direction = 1 }) {
   const [imageToFileIdMap, setImageToFileIdMap] = useState({});
   const [isPreloading, setIsPreloading] = useState(true);
   const [preloadProgress, setPreloadProgress] = useState({ current: 0, total: 0 });
+  const [isLoadingEventDrive, setIsLoadingEventDrive] = useState(false);
+  const [minLoadingRemaining, setMinLoadingRemaining] = useState(0);
+  const loadingStartedAtRef = useRef(null);
+  const minLoadTimeoutRef = useRef(null);
+
   const [showScrollTopButton, setShowScrollTopButton] = useState(false);
   const [pageShellElement, setPageShellElement] = useState(null);
   const [isFindPhotosOpen, setIsFindPhotosOpen] = useState(false);
@@ -95,7 +106,85 @@ export default function GaleriaEventoPage({ direction = 1 }) {
   const contentMotion = getGroupMotion("content", direction);
   const metaMotion = getGroupMotion("meta", direction);
 
-  const event = events.find((entry) => generateEventSlug(entry.title) === eventSlug);
+  const baseEvent = events.find((entry) => generateEventSlug(entry.title) === eventSlug);
+  const [event, setEvent] = useState(baseEvent || null);
+
+  const realLoading = isLoading || isPreloading || isLoadingEventDrive;
+
+  useEffect(() => {
+    if (realLoading && loadingStartedAtRef.current == null) {
+      loadingStartedAtRef.current = Date.now();
+    }
+  }, [realLoading]);
+
+  useEffect(() => {
+    if (!realLoading && loadingStartedAtRef.current != null) {
+      const startedAt = loadingStartedAtRef.current;
+      loadingStartedAtRef.current = null;
+      const elapsed = Date.now() - startedAt;
+      const remaining = Math.max(0, 3000 - elapsed);
+      if (remaining > 0) {
+        setMinLoadingRemaining(remaining);
+        minLoadTimeoutRef.current = window.setTimeout(() => {
+          setMinLoadingRemaining(0);
+          minLoadTimeoutRef.current = null;
+        }, remaining);
+      }
+    }
+    return () => {
+      if (minLoadTimeoutRef.current) {
+        window.clearTimeout(minLoadTimeoutRef.current);
+        minLoadTimeoutRef.current = null;
+      }
+    };
+  }, [realLoading]);
+
+  const showLoadingUI = realLoading || minLoadingRemaining > 0;
+
+  // Garante que o evento atual tenha imagens carregadas do Drive quando necessário.
+  useEffect(() => {
+    let active = true;
+
+    async function ensureEventHasImages() {
+      if (!baseEvent) {
+        if (active) {
+          setEvent(null);
+          setIsLoadingEventDrive(false);
+        }
+        return;
+      }
+
+      if (!hasGoogleDriveApiKey() || (Array.isArray(baseEvent.images) && baseEvent.images.length)) {
+        if (active) {
+          setEvent(baseEvent);
+          setIsLoadingEventDrive(false);
+        }
+        return;
+      }
+
+      setIsLoadingEventDrive(true);
+      try {
+        const processed = await processEventWithDriveFolder(baseEvent);
+        if (active) {
+          setEvent(processed);
+        }
+      } catch {
+        if (active) {
+          setEvent(baseEvent);
+        }
+      } finally {
+        if (active) {
+          setIsLoadingEventDrive(false);
+        }
+      }
+    }
+
+    ensureEventHasImages();
+
+    return () => {
+      active = false;
+    };
+  }, [baseEvent]);
   const navigableImages = matchedPhotos ?? validImages;
   const visibleGridImages = matchedPhotos ?? visibleImages;
   const matchedCount = matchedPhotos?.length ?? 0;
@@ -116,10 +205,7 @@ export default function GaleriaEventoPage({ direction = 1 }) {
 
     async function preloadEventImages() {
       if (!event?.images?.length) {
-        if (!active) {
-          return;
-        }
-
+        if (!active) return;
         setValidImages([]);
         setVisibleImages([]);
         setLoadedCount(0);
@@ -133,10 +219,7 @@ export default function GaleriaEventoPage({ direction = 1 }) {
         .filter(({ url }) => Boolean(url && url.trim()));
 
       if (!filteredImages.length) {
-        if (!active) {
-          return;
-        }
-
+        if (!active) return;
         setValidImages([]);
         setVisibleImages([]);
         setLoadedCount(0);
@@ -146,106 +229,47 @@ export default function GaleriaEventoPage({ direction = 1 }) {
       }
 
       setIsPreloading(true);
-      setPreloadProgress({ current: 0, total: filteredImages.length });
-
       const imageUrls = filteredImages.map((item) => item.url);
       const indexMap = filteredImages.map((item) => item.originalIndex);
-      const batchSize = 10;
-      const allValidUrls = [];
+      const total = imageUrls.length;
+      const BATCH_SIZE = 10;
+      const allUrls = [];
       const urlToFileId = {};
 
-      const validateBatch = async (startIndex) => {
-        const batch = imageUrls.slice(startIndex, startIndex + batchSize);
+      setPreloadProgress({ current: 0, total });
 
-        const results = await Promise.all(
-          batch.map(
-            (url, batchIndex) =>
-              new Promise((resolve) => {
-                const originalIndex = indexMap[startIndex + batchIndex];
-                const fileId = event.driveImageIds?.[originalIndex];
-                const img = new Image();
+      for (let index = 0; index < imageUrls.length; index += BATCH_SIZE) {
+        if (!active) return;
 
-                img.onload = () => resolve({ url, fileId });
-                img.onerror = () => {
-                  if (!fileId) {
-                    resolve({ url: null });
-                    return;
-                  }
-
-                  const fallbacks = [
-                    `https://drive.google.com/thumbnail?id=${fileId}&sz=w2000`,
-                    `https://drive.google.com/uc?export=download&id=${fileId}`,
-                  ];
-
-                  let fallbackIndex = 0;
-                  const tryFallback = () => {
-                    if (fallbackIndex >= fallbacks.length) {
-                      resolve({ url: null });
-                      return;
-                    }
-
-                    const fallbackImage = new Image();
-                    fallbackImage.onload = () => resolve({ url: fallbacks[fallbackIndex], fileId });
-                    fallbackImage.onerror = () => {
-                      fallbackIndex += 1;
-                      tryFallback();
-                    };
-                    fallbackImage.src = fallbacks[fallbackIndex];
-                  };
-
-                  tryFallback();
-                };
-
-                img.src = url;
-              }),
-          ),
-        );
-
-        return results.filter((result) => result.url);
-      };
-
-      const firstBatch = await validateBatch(0);
-      if (!active) {
-        return;
-      }
-
-      firstBatch.forEach((result) => {
-        allValidUrls.push(result.url);
-        if (result.fileId) {
-          urlToFileId[result.url] = result.fileId;
-        }
-      });
-
-      setValidImages([...allValidUrls]);
-      setVisibleImages(allValidUrls.slice(0, IMAGES_PER_PAGE));
-      setLoadedCount(Math.min(IMAGES_PER_PAGE, allValidUrls.length));
-      setImageToFileIdMap({ ...urlToFileId });
-      setPreloadProgress({ current: Math.min(batchSize, imageUrls.length), total: imageUrls.length });
-      setIsPreloading(false);
-
-      for (let index = batchSize; index < imageUrls.length; index += batchSize) {
-        const validBatch = await validateBatch(index);
-        if (!active) {
-          return;
-        }
-
-        validBatch.forEach((result) => {
-          allValidUrls.push(result.url);
-          if (result.fileId) {
-            urlToFileId[result.url] = result.fileId;
-          }
+        const batch = imageUrls.slice(index, index + BATCH_SIZE);
+        const batchIndices = indexMap.slice(index, index + BATCH_SIZE);
+        batch.forEach((url, i) => {
+          allUrls.push(url);
+          const origIndex = batchIndices[i];
+          const fileId = event.driveImageIds?.[origIndex];
+          if (fileId) urlToFileId[url] = fileId;
         });
 
-        setValidImages([...allValidUrls]);
+        const current = Math.min(index + BATCH_SIZE, total);
+        setPreloadProgress({ current, total });
+        setValidImages([...allUrls]);
+        setVisibleImages([...allUrls]);
+        setLoadedCount(allUrls.length);
         setImageToFileIdMap({ ...urlToFileId });
-        setPreloadProgress({ current: Math.min(index + batchSize, imageUrls.length), total: imageUrls.length });
 
-        await new Promise((resolve) => window.setTimeout(resolve, 50));
+        await new Promise((resolve) => window.setTimeout(resolve, 120));
       }
+
+      if (!active) return;
+      setPreloadProgress({ current: total, total });
+      setValidImages([...allUrls]);
+      setVisibleImages([...allUrls]);
+      setLoadedCount(allUrls.length);
+      setImageToFileIdMap({ ...urlToFileId });
+      setIsPreloading(false);
     }
 
     preloadEventImages();
-
     return () => {
       active = false;
     };
@@ -291,7 +315,7 @@ export default function GaleriaEventoPage({ direction = 1 }) {
     return () => {
       scrollContainer.removeEventListener("scroll", handleScroll);
     };
-  }, []);
+  }, [showLoadingUI]);
 
   useEffect(() => {
     setMatchedPhotos(null);
@@ -302,6 +326,21 @@ export default function GaleriaEventoPage({ direction = 1 }) {
 
   function openImage(imageUrl) {
     const realIndex = navigableImages.indexOf(imageUrl);
+    const fileId = imageToFileIdMap[imageUrl];
+    const lightboxSrc = fileId
+      ? getGoogleDriveImageUrl(fileId)
+      : imageUrl;
+
+    console.log("[galeria-evento][lightbox:open]", {
+      imageUrl: imageUrl?.slice?.(0, 80),
+      fileId: fileId ?? null,
+      lightboxSrc: lightboxSrc?.slice?.(0, 80),
+      hasFileIdInMap: fileId != null,
+      mapKeysSample: Object.keys(imageToFileIdMap).slice(0, 2),
+      navigableCount: navigableImages.length,
+      realIndex,
+    });
+
     setSelectedImage(imageUrl);
     setCurrentImageIndex(realIndex >= 0 ? realIndex : 0);
   }
@@ -424,10 +463,17 @@ export default function GaleriaEventoPage({ direction = 1 }) {
     }
   }
 
-  if (isLoading) {
+  if (showLoadingUI) {
     return (
       <div className="content-scroll page-content page-content--centered">
-        <p className="gallery-state">Carregando evento...</p>
+        <ForroLoading
+          variant="full"
+          progress={
+            preloadProgress.total
+              ? Math.round((preloadProgress.current / preloadProgress.total) * 100)
+              : null
+          }
+        />
       </div>
     );
   }
@@ -481,43 +527,45 @@ export default function GaleriaEventoPage({ direction = 1 }) {
           </motion.div>
         ) : null}
 
-        {isPreloading ? (
-          <motion.div className="gallery-state" {...contentMotion}>
-            Carregando e validando imagens... {preloadProgress.current}/{preloadProgress.total || 0}
-          </motion.div>
-        ) : (
-          <motion.div className="gallery-event__grid" {...contentMotion}>
-            {visibleGridImages.map((image) => {
-              const realIndex = navigableImages.indexOf(image);
-              const label = String(realIndex + 1).padStart(2, "0");
+        <motion.div className="gallery-event__grid" {...contentMotion}>
+          {visibleGridImages.map((image) => {
+            const realIndex = navigableImages.indexOf(image);
+            const label = String(realIndex + 1).padStart(2, "0");
+            const fileId = imageToFileIdMap[image];
+            const thumbSrc = fileId
+              ? getGoogleDriveImageUrl(fileId, "thumbnail")
+              : image;
 
-              return (
-                <button
-                  key={`${label}-${image}`}
-                  type="button"
-                  className="gallery-event__thumb"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    openImage(image);
-                  }}
-                >
-                  <img
-                    src={image}
-                    alt={`${event.title} - Foto ${realIndex + 1}`}
-                    className="gallery-event__thumb-image"
-                    loading="lazy"
-                  />
-                </button>
-              );
-            })}
-          </motion.div>
-        )}
+            return (
+              <button
+                key={`${label}-${image}`}
+                type="button"
+                className="gallery-event__thumb"
+                onClick={(e) => {
+                  e.preventDefault();
+                  openImage(image);
+                }}
+              >
+                <img
+                  src={thumbSrc}
+                  alt={`${event.title} - Foto ${realIndex + 1}`}
+                  className="gallery-event__thumb-image"
+                  loading="lazy"
+                />
+              </button>
+            );
+          })}
+        </motion.div>
 
-        {!isPreloading && !validImages.length ? (
+        {!validImages.length ? (
           <p className="gallery-state">Nenhuma foto válida foi encontrada para este evento.</p>
         ) : null}
 
-        {!matchedPhotos && !isPreloading && loadedCount < validImages.length ? <div ref={observerRef} className="gallery-event__load-more">Carregando mais fotos...</div> : null}
+        {!matchedPhotos && loadedCount < validImages.length ? (
+          <div ref={observerRef} className="gallery-event__load-more">
+            Carregando mais fotos...
+          </div>
+        ) : null}
       </div>
 
       {ENABLE_FACE_SEARCH && pageShellElement ? (
@@ -622,7 +670,26 @@ export default function GaleriaEventoPage({ direction = 1 }) {
                   </button>
                 ) : null}
 
-                <img src={selectedImage} alt={`${event.title} - Foto ampliada`} className="gallery-lightbox__image" />
+                <img
+                  key={selectedImage}
+                  src={
+                    (imageToFileIdMap[selectedImage]
+                      ? getGoogleDriveImageUrl(imageToFileIdMap[selectedImage], "large")
+                      : selectedImage) || ""
+                  }
+                  alt={`${event.title} - Foto ampliada`}
+                  className="gallery-lightbox__image"
+                  onLoad={() => {
+                    console.log("[galeria-evento][lightbox:img:load] OK");
+                  }}
+                  onError={(e) => {
+                    console.warn("[galeria-evento][lightbox:img:error]", {
+                      src: e.target?.src?.slice?.(0, 120),
+                      selectedImage: selectedImage?.slice?.(0, 80),
+                      fileId: imageToFileIdMap[selectedImage] ?? null,
+                    });
+                  }}
+                />
 
                 <div className="gallery-lightbox__footer">
                   <button

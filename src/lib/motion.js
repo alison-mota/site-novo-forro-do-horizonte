@@ -68,11 +68,17 @@ export function getGroupMotion(group, direction = 1) {
 }
 
 export function getSceneMotion(direction = 1) {
+  const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
+  const horizontalOffset = isMobile ? "0%" : "12%";
+  const exitOffset = isMobile ? "0%" : "16%";
+  const initialScale = isMobile ? 1 : 1.01;
+  const exitScale = isMobile ? 1 : 0.995;
+
   return {
     initial: {
       opacity: 0.72,
-      x: direction >= 0 ? "12%" : "-12%",
-      scale: 1.01,
+      x: direction >= 0 ? horizontalOffset : `-${horizontalOffset}`,
+      scale: initialScale,
       filter: "blur(4px)",
     },
     animate: {
@@ -87,8 +93,8 @@ export function getSceneMotion(direction = 1) {
     },
     exit: {
       opacity: 0.78,
-      x: direction >= 0 ? "-16%" : "16%",
-      scale: 0.995,
+      x: direction >= 0 ? (isMobile ? "0%" : `-${exitOffset}`) : (isMobile ? "0%" : exitOffset),
+      scale: exitScale,
       filter: "blur(4px)",
       transition: {
         duration: 0.9,
