@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import GalleryCard from "../components/GalleryCard.jsx";
+import { GalleryCard } from "../components/sections/index.js";
 import { sortEventsByDate } from "../data/events.js";
 import { useEvents } from "../hooks/useEvents.js";
 import { getGroupMotion } from "../lib/motion.js";

@@ -1,8 +1,7 @@
 import { useRef } from "react";
 import { motion } from "framer-motion";
 import { getGroupMotion } from "../lib/motion.js";
-import Button from "../components/Button.jsx";
-import FitTextLine from "../components/FitTextLine.jsx";
+import { Button, FitTextLine } from "../components/ui/index.js";
 
 export default function BiografiaPage({ direction = 1 }) {
   const contentMotion = getGroupMotion("content", direction);

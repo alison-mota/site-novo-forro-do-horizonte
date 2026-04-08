@@ -6,10 +6,12 @@ import ContatoPage from "./pages/ContatoPage.jsx";
 import GaleriaEventoPage from "./pages/GaleriaEventoPage.jsx";
 import GaleriaPage from "./pages/GaleriaPage.jsx";
 import HomePage from "./pages/HomePage.jsx";
+import MerchPage from "./pages/Merch/index.tsx";
 
 export function AppRoutes() {
   return (
     <Routes>
+      <Route path="/loja" element={<MerchPage />} />
       <Route element={<AppShell />}>
         <Route index element={<HomePage />} />
         <Route path="/agenda" element={<AgendaPage />} />

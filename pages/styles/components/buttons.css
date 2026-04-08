@@ -38,13 +38,13 @@
 
 .button--primary {
   overflow: hidden;
-  color: white;
+  color: var(--fdh-comp-btn-primary-text);
 }
 
 .button--primary .button__bg {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to right, var(--color-gold), var(--color-orange), var(--color-red));
+  background: var(--fdh-comp-btn-primary-bg);
   opacity: 0.9;
   transition: opacity 0.2s ease;
 }
@@ -52,7 +52,7 @@
 .button--primary .button__glow {
   position: absolute;
   inset: 0;
-  background: rgba(255, 255, 255, 0.2);
+  background: var(--fdh-comp-btn-primary-glow);
   filter: blur(18px);
   opacity: 0;
   transition: opacity 0.2s ease;
@@ -68,9 +68,9 @@
 
 .button--secondary,
 .button--small {
-  border: 1px solid rgba(26, 26, 26, 0.3);
-  color: var(--color-ink);
-  background-color: var(--color-sand);
+  border: 1px solid var(--fdh-sys-color-border-strong);
+  color: var(--fdh-sys-color-text-primary);
+  background-color: var(--fdh-sys-color-bg);
 }
 
 .button--secondary:hover,

@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
-import EditorialFooter from "../components/EditorialFooter.jsx";
-import HomeHero from "../components/HomeHero.jsx";
+import { EditorialFooter } from "../components/layout/index.js";
+import { HomeHero } from "../components/sections/index.js";
 import { getGroupMotion } from "../lib/motion.js";
 
 export default function HomePage({ direction = 1 }) {

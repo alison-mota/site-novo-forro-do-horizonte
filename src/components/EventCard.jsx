@@ -1,4 +1,4 @@
-import Button from "./Button.jsx";
+import { Button } from "./ui/index.js";
 
 export default function EventCard({ event }) {
   return (

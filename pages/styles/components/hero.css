@@ -82,7 +82,7 @@
 .hero-title {
   position: relative;
   z-index: 6;
-  color: #41D4D4;
+  color: var(--fdh-sys-color-hero-title);
 }
 
 .hero-title__line {
@@ -93,7 +93,7 @@
   position: relative;
   z-index: 25;
   pointer-events: none;
-  color: #ffffff;
+  color: var(--fdh-sys-color-text-inverse);
   filter: url(#hero-outline-filter);
 }
 
@@ -112,7 +112,7 @@
   margin: 0 auto 2rem;
   font-family: var(--font-sans);
   font-size: clamp(1.125rem, 2.3vw, 1.5rem);
-  color: rgba(26, 26, 26, 0.8);
+  color: var(--fdh-sys-color-text-secondary);
 }
 
 .hero-buttons {

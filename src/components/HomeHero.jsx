@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { getGroupMotion } from "../lib/motion.js";
-import Button from "./Button.jsx";
+import { Button } from "./ui/index.js";
 
 export default function HomeHero({ direction = 1 }) {
   const mediaMotion = getGroupMotion("media", direction);

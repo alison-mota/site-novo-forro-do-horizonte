@@ -19,14 +19,14 @@
   inset: 0;
   z-index: -1;
   border-radius: inherit;
-  background: rgba(255, 248, 236, 0);
+  background: transparent;
   box-shadow: 0 10px 24px rgba(26, 26, 26, 0);
   transition: background-color 0.28s ease, box-shadow 0.28s ease, backdrop-filter 0.28s ease;
 }
 
 .site-nav--scrolled::before {
-  background: rgba(255, 248, 236, 0.9);
-  box-shadow: 0 10px 24px rgba(26, 26, 26, 0.1);
+  background: var(--fdh-comp-nav-surface-scrolled);
+  box-shadow: var(--fdh-comp-nav-shadow-scrolled);
   backdrop-filter: blur(10px);
 }
 

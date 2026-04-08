@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import EventCard from "../components/EventCard.jsx";
+import { EventCard } from "../components/sections/index.js";
 import { agendaData } from "../data/agenda.js";
 import { getGroupMotion } from "../lib/motion.js";
 

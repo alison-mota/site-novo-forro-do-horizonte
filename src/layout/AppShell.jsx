@@ -1,8 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useOutlet } from "react-router-dom";
-import SiteNav from "../components/SiteNav.jsx";
-import SunLayer from "../components/SunLayer.jsx";
-import WindOverlay from "../components/WindOverlay.jsx";
+import { SiteNav, SunLayer, WindOverlay } from "../components/layout/index.js";
 import { useRouteState } from "../lib/useRouteState.js";
 import RouteTransitionManager from "./RouteTransitionManager.jsx";
 
