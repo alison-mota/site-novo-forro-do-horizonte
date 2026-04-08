@@ -1,0 +1,55 @@
+:root {
+  --fdh-sys-color-bg: var(--fdh-ref-color-sand);
+  --fdh-sys-color-surface: var(--fdh-ref-color-white);
+  --fdh-sys-color-surface-muted: rgba(255, 248, 236, 0.9);
+  --fdh-sys-color-overlay: rgba(26, 26, 26, 0.72);
+
+  --fdh-sys-color-text-primary: var(--fdh-ref-color-ink);
+  --fdh-sys-color-text-inverse: var(--fdh-ref-color-white);
+  --fdh-sys-color-text-secondary: rgba(26, 26, 26, 0.8);
+  --fdh-sys-color-text-muted: var(--fdh-ref-color-deep);
+
+  --fdh-sys-color-border-subtle: rgba(26, 26, 26, 0.08);
+  --fdh-sys-color-border-default: rgba(26, 26, 26, 0.12);
+  --fdh-sys-color-border-strong: rgba(26, 26, 26, 0.3);
+  --fdh-sys-color-focus-ring: rgba(244, 122, 42, 0.45);
+  --fdh-sys-color-hero-title: var(--fdh-ref-color-cyan);
+
+  --fdh-sys-font-display: var(--fdh-ref-font-sora);
+  --fdh-sys-font-ui: var(--fdh-ref-font-inter);
+
+  --fdh-sys-radius-card: var(--fdh-ref-radius-md);
+  --fdh-sys-radius-button: var(--fdh-ref-radius-pill);
+  --fdh-sys-radius-input: var(--fdh-ref-radius-sm);
+  --fdh-sys-radius-media: var(--fdh-ref-radius-sm);
+
+  --fdh-sys-z-base: 1;
+  --fdh-sys-z-sun: 10;
+  --fdh-sys-z-photo: 20;
+  --fdh-sys-z-text: 30;
+  --fdh-sys-z-nav: 100;
+
+  --fdh-comp-btn-primary-bg: linear-gradient(
+    90deg,
+    var(--fdh-ref-color-gold),
+    var(--fdh-ref-color-orange),
+    var(--fdh-ref-color-red)
+  );
+  --fdh-comp-btn-primary-text: var(--fdh-sys-color-text-inverse);
+  --fdh-comp-btn-radius: var(--fdh-sys-radius-button);
+  --fdh-comp-nav-bg: var(--fdh-ref-color-ink);
+  --fdh-comp-nav-text: var(--fdh-sys-color-text-inverse);
+  --fdh-comp-nav-surface-scrolled: var(--fdh-sys-color-surface-muted);
+  --fdh-comp-nav-shadow-scrolled: 0 10px 24px rgba(26, 26, 26, 0.1);
+  --fdh-comp-btn-primary-glow: rgba(255, 255, 255, 0.2);
+
+  /* Compatibilidade temporária com a base atual */
+  --color-sand: var(--fdh-ref-color-sand);
+  --color-gold: var(--fdh-ref-color-gold);
+  --color-orange: var(--fdh-ref-color-orange);
+  --color-red: var(--fdh-ref-color-red);
+  --color-deep: var(--fdh-ref-color-deep);
+  --color-ink: var(--fdh-ref-color-ink);
+  --font-sans: var(--fdh-ref-font-inter);
+  --font-display: var(--fdh-ref-font-sora);
+}

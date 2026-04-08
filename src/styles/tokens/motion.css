@@ -1,0 +1,17 @@
+:root {
+  --fdh-motion-ease-standard: cubic-bezier(0.25, 0.8, 0.25, 1);
+  --fdh-motion-duration-fast: 200ms;
+  --fdh-motion-duration-base: 300ms;
+  --fdh-motion-duration-slow: 900ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

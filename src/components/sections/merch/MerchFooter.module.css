@@ -1,0 +1,96 @@
+.footer {
+  border-top: 1px solid var(--fdh-merch-border-subtle);
+  background: var(--fdh-merch-surface-strong);
+  padding: var(--fdh-merch-space-2xl) var(--fdh-merch-space-lg);
+}
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--fdh-merch-space-lg);
+}
+
+.copy {
+  margin: 0;
+  font-family: var(--fdh-merch-font-display);
+  font-size: 0.68rem;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--fdh-merch-on-surface-muted);
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--fdh-merch-space-lg);
+}
+
+.link {
+  text-decoration: none;
+  font-family: var(--fdh-merch-font-display);
+  font-size: 0.68rem;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--fdh-merch-on-surface-muted);
+  transition: color var(--fdh-merch-transition-fast), opacity var(--fdh-merch-transition-fast), transform var(--fdh-merch-transition-fast);
+}
+
+.link:hover {
+  color: var(--fdh-merch-primary);
+}
+
+.link:active {
+  transform: translateY(1px);
+}
+
+.link:focus-visible {
+  outline: 2px solid var(--fdh-merch-focus-ring);
+  outline-offset: 2px;
+  border-radius: var(--fdh-merch-radius-xs);
+}
+
+.link:disabled,
+.link[aria-disabled="true"] {
+  pointer-events: none;
+  opacity: 0.45;
+}
+
+.social {
+  display: flex;
+  gap: var(--fdh-merch-space-sm);
+}
+
+.socialButton {
+  inline-size: 2.1rem;
+  block-size: 2.1rem;
+  border: 1px solid var(--fdh-merch-border-default);
+  border-radius: var(--fdh-merch-radius-pill);
+  background: var(--fdh-merch-surface);
+  color: var(--fdh-merch-on-surface);
+  font-family: var(--fdh-merch-font-display);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform var(--fdh-merch-transition-fast), background var(--fdh-merch-transition-fast), opacity var(--fdh-merch-transition-fast);
+}
+
+.socialButton:hover {
+  background: var(--fdh-merch-surface-low);
+}
+
+.socialButton:active {
+  transform: scale(0.95);
+}
+
+.socialButton:focus-visible {
+  outline: 2px solid var(--fdh-merch-focus-ring);
+  outline-offset: 2px;
+}
+
+.socialButton:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
