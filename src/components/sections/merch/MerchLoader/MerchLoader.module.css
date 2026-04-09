@@ -1,0 +1,442 @@
+.loader {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background: var(--fdh-sys-color-bg);
+  color: var(--fdh-sys-color-text-primary);
+  isolation: isolate;
+  transition: opacity 600ms ease-in, transform 600ms ease-in;
+  transform: scale(1);
+}
+
+.loader::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.03;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.78' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+.sun {
+  position: absolute;
+  inline-size: clamp(170px, 21vw, 250px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    var(--fdh-ref-color-gold) 0%,
+    rgba(0, 0, 0, 0) 74%
+  );
+  opacity: 0.18;
+  animation: sunPulse 6s ease-in-out infinite;
+}
+
+.particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--fdh-ref-color-gold);
+  opacity: 0.45;
+  animation-name: floatParticle;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+.particle1 {
+  inline-size: 3px;
+  block-size: 3px;
+  left: 14%;
+  top: 22%;
+  animation-duration: 3.4s;
+  animation-delay: -1.2s;
+}
+
+.particle2 {
+  inline-size: 5px;
+  block-size: 5px;
+  left: 27%;
+  top: 66%;
+  animation-duration: 5.1s;
+  animation-delay: -2.6s;
+}
+
+.particle3 {
+  inline-size: 2px;
+  block-size: 2px;
+  left: 35%;
+  top: 38%;
+  animation-duration: 4.4s;
+  animation-delay: -1.8s;
+}
+
+.particle4 {
+  inline-size: 6px;
+  block-size: 6px;
+  left: 49%;
+  top: 73%;
+  animation-duration: 6.8s;
+  animation-delay: -3.1s;
+}
+
+.particle5 {
+  inline-size: 4px;
+  block-size: 4px;
+  left: 58%;
+  top: 27%;
+  animation-duration: 3.7s;
+  animation-delay: -1.4s;
+}
+
+.particle6 {
+  inline-size: 5px;
+  block-size: 5px;
+  left: 68%;
+  top: 52%;
+  animation-duration: 6.1s;
+  animation-delay: -2.9s;
+}
+
+.particle7 {
+  inline-size: 2px;
+  block-size: 2px;
+  left: 74%;
+  top: 18%;
+  animation-duration: 4.2s;
+  animation-delay: -1.1s;
+}
+
+.particle8 {
+  inline-size: 4px;
+  block-size: 4px;
+  left: 81%;
+  top: 64%;
+  animation-duration: 5.7s;
+  animation-delay: -2.3s;
+}
+
+.particle9 {
+  inline-size: 3px;
+  block-size: 3px;
+  left: 89%;
+  top: 42%;
+  animation-duration: 3.5s;
+  animation-delay: -1.7s;
+}
+
+.particle10 {
+  inline-size: 6px;
+  block-size: 6px;
+  left: 21%;
+  top: 83%;
+  animation-duration: 6.4s;
+  animation-delay: -3.4s;
+}
+
+.particle11 {
+  inline-size: 5px;
+  block-size: 5px;
+  left: 11%;
+  top: 48%;
+  animation-duration: 4.8s;
+  animation-delay: -2.1s;
+}
+
+.particle12 {
+  inline-size: 3px;
+  block-size: 3px;
+  left: 61%;
+  top: 86%;
+  animation-duration: 6.9s;
+  animation-delay: -3.2s;
+}
+
+.content {
+  position: relative;
+  z-index: 2;
+  inline-size: min(86vw, 560px);
+  text-align: center;
+  display: grid;
+  gap: 1.1rem;
+}
+
+.phrase {
+  margin: 0;
+  min-block-size: 2.9rem;
+  font-family: var(--fdh-merch-font-display, inherit);
+  font-weight: 700;
+  font-size: clamp(1.4rem, 2.9vw, 2.2rem);
+  letter-spacing: 0.04em;
+  color: var(--fdh-sys-color-text-primary);
+  will-change: transform, opacity, filter, clip-path;
+}
+
+.phraseStage {
+  position: relative;
+  min-block-size: 3rem;
+  display: grid;
+  place-items: center;
+}
+
+.phraseStageExiting {
+  pointer-events: none;
+}
+
+.phraseBurst {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.burstParticle {
+  position: absolute;
+  inset-block-start: 50%;
+  inset-inline-start: 50%;
+  inline-size: 4px;
+  block-size: 4px;
+  border-radius: 999px;
+  opacity: 0;
+  background: radial-gradient(
+    circle at 30% 30%,
+    rgba(255, 255, 255, 0.9) 0%,
+    var(--fdh-ref-color-gold) 45%,
+    var(--fdh-ref-color-orange) 100%
+  );
+  transform: translate(-50%, -50%) scale(0.2);
+}
+
+.phraseStageExiting .burstParticle {
+  animation: phraseBurst 320ms ease-out forwards;
+}
+
+.phraseEnter {
+  animation: phraseIn 400ms ease-out both;
+}
+
+.phraseExit {
+  animation: phraseOut 300ms ease-in forwards;
+}
+
+.burstParticle1 {
+  --burst-x: -74px;
+  --burst-y: -32px;
+  --burst-size: 3px;
+  animation-delay: 0ms;
+}
+
+.burstParticle2 {
+  --burst-x: -58px;
+  --burst-y: -11px;
+  --burst-size: 4px;
+  animation-delay: 24ms;
+}
+
+.burstParticle3 {
+  --burst-x: -41px;
+  --burst-y: 22px;
+  --burst-size: 3px;
+  animation-delay: 18ms;
+}
+
+.burstParticle4 {
+  --burst-x: -17px;
+  --burst-y: 31px;
+  --burst-size: 5px;
+  animation-delay: 12ms;
+}
+
+.burstParticle5 {
+  --burst-x: 10px;
+  --burst-y: 30px;
+  --burst-size: 4px;
+  animation-delay: 20ms;
+}
+
+.burstParticle6 {
+  --burst-x: 37px;
+  --burst-y: 23px;
+  --burst-size: 3px;
+  animation-delay: 8ms;
+}
+
+.burstParticle7 {
+  --burst-x: 57px;
+  --burst-y: 8px;
+  --burst-size: 4px;
+  animation-delay: 26ms;
+}
+
+.burstParticle8 {
+  --burst-x: 72px;
+  --burst-y: -18px;
+  --burst-size: 5px;
+  animation-delay: 0ms;
+}
+
+.burstParticle9 {
+  --burst-x: 46px;
+  --burst-y: -34px;
+  --burst-size: 3px;
+  animation-delay: 16ms;
+}
+
+.burstParticle10 {
+  --burst-x: 20px;
+  --burst-y: -38px;
+  --burst-size: 4px;
+  animation-delay: 10ms;
+}
+
+.burstParticle11 {
+  --burst-x: -8px;
+  --burst-y: -37px;
+  --burst-size: 3px;
+  animation-delay: 22ms;
+}
+
+.burstParticle12 {
+  --burst-x: -28px;
+  --burst-y: -30px;
+  --burst-size: 4px;
+  animation-delay: 6ms;
+}
+
+.burstParticle13 {
+  --burst-x: 0px;
+  --burst-y: 0px;
+  --burst-size: 6px;
+  animation-delay: 4ms;
+}
+
+.burstParticle14 {
+  --burst-x: 0px;
+  --burst-y: -16px;
+  --burst-size: 5px;
+  animation-delay: 28ms;
+}
+
+.progressTrack {
+  inline-size: 100%;
+  block-size: 0.54rem;
+  border-radius: 999px;
+  background: var(--fdh-sys-color-border-subtle);
+  overflow: hidden;
+}
+
+.progressFill {
+  display: block;
+  block-size: 100%;
+  inline-size: 0%;
+  border-radius: inherit;
+  background: var(--fdh-comp-btn-primary-bg);
+  animation: progressFill var(--fdh-merch-loader-duration, 4000ms) linear forwards;
+}
+
+.exiting {
+  opacity: 0;
+  transform: scale(1.02);
+}
+
+@keyframes sunPulse {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.08);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes floatParticle {
+  0% {
+    transform: translate(-10px, -38px) scale(0.92);
+    opacity: 0.28;
+  }
+
+  50% {
+    transform: translate(12px, 38px) scale(1.14);
+    opacity: 0.82;
+  }
+
+  100% {
+    transform: translate(-10px, -38px) scale(0.92);
+    opacity: 0.28;
+  }
+}
+
+@keyframes phraseIn {
+  0% {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes phraseOut {
+  0% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+    clip-path: inset(0 0 0 0 round 8px);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(-4px) scale(1.08);
+    filter: blur(11px);
+    clip-path: inset(38% 0 34% 0 round 8px);
+  }
+}
+
+@keyframes phraseBurst {
+  0% {
+    opacity: 0.9;
+    inline-size: var(--burst-size, 4px);
+    block-size: var(--burst-size, 4px);
+    transform: translate(-50%, -50%) scale(0.4);
+    filter: blur(0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(
+        calc(-50% + var(--burst-x, 0px)),
+        calc(-50% + var(--burst-y, 0px))
+      )
+      scale(1.24);
+    filter: blur(1.5px);
+  }
+}
+
+@keyframes progressFill {
+  from {
+    inline-size: 0%;
+  }
+
+  to {
+    inline-size: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sun,
+  .particle {
+    animation: none;
+  }
+}
