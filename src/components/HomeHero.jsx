@@ -52,7 +52,7 @@ export default function HomeHero({ direction = 1 }) {
           </motion.p>
 
           <motion.div className="hero-buttons" {...ctaMotion}>
-            <Button label="Ver fotos dos eventos" to="/galeria" variant="primary" />
+            <Button label="LOJA DE CAMISETAS" to="/loja" variant="primary" />
             <Button label="Contratar Show" to="/contato" variant="secondary" />
           </motion.div>
         </div>

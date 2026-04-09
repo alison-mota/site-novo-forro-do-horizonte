@@ -35,7 +35,7 @@ export default function MerchNav() {
       className={`${styles.nav} ${isScrolled ? styles.scrolled : ""}`}
     >
       <div className={styles.container}>
-        <a href="/loja" className={styles.logo}>
+        <a href="/" className={styles.logo}>
           Forro do Horizonte
         </a>
 
