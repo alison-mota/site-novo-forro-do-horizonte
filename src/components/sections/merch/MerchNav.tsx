@@ -1,7 +1,17 @@
 import { useEffect, useState } from "react";
+// @ts-ignore
 import styles from "./MerchNav.module.css";
 
-const links = ["Colecoes", "Custom", "Materiais", "Sustentabilidade"];
+export const MERCH_CATEGORIES = ["camisetas", "pochetes", "leques", "toalhas"] as const;
+
+export type MerchCategory = (typeof MERCH_CATEGORIES)[number];
+
+const menuItems: Array<{ id: MerchCategory; label: string }> = [
+  { id: "camisetas", label: "CAMISETAS" },
+  { id: "pochetes", label: "POCHETES" },
+  { id: "leques", label: "LEQUES" },
+  { id: "toalhas", label: "TOALHAS" },
+];
 
 function CartIcon() {
   return (
@@ -19,7 +29,12 @@ function ProfileIcon() {
   );
 }
 
-export default function MerchNav() {
+type MerchNavProps = {
+  activeCategory: MerchCategory;
+  onSelectCategory: (category: MerchCategory) => void;
+};
+
+export default function MerchNav({ activeCategory, onSelectCategory }: MerchNavProps) {
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
@@ -36,20 +51,23 @@ export default function MerchNav() {
     >
       <div className={styles.container}>
         <a href="/" className={styles.logo}>
-          Forro do Horizonte
+          <span className={styles.logoWarm}>FORRÓ DO</span>{" "}
+          <span className={styles.logoCool}>HORIZONTE</span>
         </a>
 
         <ul className={styles.links} aria-label="Navegacao da loja">
-          {links.map((link, index) => (
-            <li key={link}>
-              <a
-                href="#"
-                className={`${styles.navLink} ${
-                  index === 1 ? styles.navLinkActive : ""
+          {menuItems.map((item) => (
+            <li key={item.id}>
+              <button
+                type="button"
+                className={`${styles.navLink} ${styles.navButton} ${
+                  activeCategory === item.id ? styles.navLinkActive : ""
                 }`}
+                onClick={() => onSelectCategory(item.id)}
+                aria-current={activeCategory === item.id ? "page" : undefined}
               >
-                {link}
-              </a>
+                {item.label}
+              </button>
             </li>
           ))}
         </ul>

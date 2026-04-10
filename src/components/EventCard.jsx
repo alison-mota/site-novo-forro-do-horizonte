@@ -8,6 +8,7 @@ export default function EventCard({ event }) {
           <div className="event-card__date">
             <span className="event-card__month">{event.month}</span>
             <span className="event-card__day">{event.day}</span>
+            <span className="event-card__year">{event.year}</span>
           </div>
           <div className="event-card__copy">
             <h3 className="event-card__title">{event.title}</h3>

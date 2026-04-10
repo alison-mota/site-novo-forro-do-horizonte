@@ -26,13 +26,20 @@
 .logo {
   font-family: var(--fdh-merch-font-display);
   font-size: clamp(1.05rem, 1.7vw, 1.45rem);
-  font-style: italic;
+  font-style: normal;
   font-weight: 800;
   letter-spacing: 0.03em;
   text-transform: uppercase;
-  color: var(--fdh-merch-on-surface);
   text-decoration: none;
   transition: opacity var(--fdh-merch-transition-fast), transform var(--fdh-merch-transition-fast);
+}
+
+.logoWarm {
+  color: var(--fdh-merch-primary);
+}
+
+.logoCool {
+  color: var(--fdh-sys-color-hero-title);
 }
 
 .logo:hover {
@@ -64,7 +71,7 @@
 }
 
 .navLink {
-  font-family: var(--fdh-merch-font-display);
+  font-family: var(--fdh-merch-font-ui);
   font-size: 0.8rem;
   font-weight: 800;
   letter-spacing: 0.12em;
@@ -74,6 +81,13 @@
   border-block-end: 3px solid transparent;
   padding-block-end: var(--fdh-merch-space-2xs);
   transition: color var(--fdh-merch-transition-fast), border-color var(--fdh-merch-transition-fast), opacity var(--fdh-merch-transition-fast), transform var(--fdh-merch-transition-fast);
+}
+
+.navButton {
+  border: 0;
+  background: transparent;
+  padding-inline: 0;
+  cursor: pointer;
 }
 
 .navLinkActive {

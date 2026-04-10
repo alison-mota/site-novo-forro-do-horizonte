@@ -1,7 +1,7 @@
 .merchRoot {
   background: var(--fdh-merch-bg);
   color: var(--fdh-merch-on-surface);
-  font-family: var(--fdh-merch-font-ui);
+  font-family: var(--font-sans, var(--fdh-merch-font-ui));
 }
 
 .snapRoot {

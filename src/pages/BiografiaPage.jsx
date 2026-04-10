@@ -20,7 +20,7 @@ export default function BiografiaPage({ direction = 1 }) {
 
   return (
     <div ref={scrollContainerRef} className="content-scroll page-content">
-      <div className="bio-container">
+      <motion.div className="bio-container" {...contentMotion}>
         {/* 1. HERO EDITORIAL */}
         <section className="bio-hero">
           <div className="bio-hero__header">
@@ -192,7 +192,7 @@ export default function BiografiaPage({ direction = 1 }) {
             </div>
           </motion.div>
         </section>
-      </div>
+      </motion.div>
     </div>
   );
 }

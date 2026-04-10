@@ -1,8 +1,8 @@
 // @ts-ignore
 import styles from "./MerchHero.module.css";
 
-const HERO_IMAGE =
-  "https://lh3.googleusercontent.com/aida-public/AB6AXuD4lHXj6feaNhb0yJAmUMWRbWPuFS9likTu682Sj5FcdlvlLBt_dVPEvK8mVCNrdtJYzKrhcAFn_Kejn0o37DGzxSf-OKwPFBVjUiTJml84aYo5PthCpSwnEJT6YJbCwFc1GXLqXnAoJ4E7Q4QVQcOjnGy9CVXKrtWX_PVzIxeLXnadh9tZq9QSsjVUx-oDv2etEXd_xZamuh2OnA7Aw8UKgt_vGVkQ_S9ROa5wK8-jWoofP25Q-tVooZLlW5HlbLF_ong4UdfFUw";
+// @ts-ignore
+const HERO_IMAGE = `${import.meta.env.BASE_URL}images/merch/banner-home.png`;
 
 export default function MerchHero() {
   return (
@@ -18,7 +18,7 @@ export default function MerchHero() {
             Se vista de Horizonte e financie a gravação das faixas que vão levar a gente pra juntim de você!
           </p>
           <button type="button" className={styles.cta}>
-            Garantir minha peca
+            Comprar agora
           </button>
         </div>
 

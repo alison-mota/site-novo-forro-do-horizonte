@@ -7,6 +7,11 @@ export function useMerchScroll(sectionRefs: Array<RefObject<HTMLElement | null>>
   const wrapperRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
+    const isMobileViewport = window.matchMedia("(max-width: 767px)").matches;
+    if (isMobileViewport) {
+      return;
+    }
+
     const wrapper = wrapperRef.current;
     const sections = sectionRefs
       .map((sectionRef) => sectionRef.current)

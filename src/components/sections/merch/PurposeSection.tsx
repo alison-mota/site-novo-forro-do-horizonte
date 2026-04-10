@@ -1,7 +1,6 @@
 import styles from "./PurposeSection.module.css";
 
-const IMAGE =
-  "https://lh3.googleusercontent.com/aida-public/AB6AXuCA0XCU0JNdRWi1Rg8BLF2qxnEeR4YDeyQ_IcLP0nNIK4Zllag-sqO_UnVLzjnTU67g5QGwpIdki5zVoUY1MzG6iHDwObLCTRhUnkujAjUrXL91FPJIvifoVYWFBNpQ3SK_6f3l1tsoDNxIctRVaZyiQrWeeexc1nSURUPCiSA_QLmKljqUDqyOie7tXWAUmB0xapPWH1po1KQvDUwSLiATYKxEZ70kpNjA00aTDGN7MtAhStSNToE4mAOuEYbUAWdTEJYA8BRnTQ";
+const IMAGE = `${import.meta.env.BASE_URL}images/merch/banner-2-loja-home.jpg`;
 
 export default function PurposeSection() {
   return (

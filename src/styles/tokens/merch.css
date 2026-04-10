@@ -45,8 +45,8 @@
   --fdh-merch-space-3xl: 64px;
   --fdh-merch-space-4xl: 96px;
 
-  --fdh-merch-font-display: var(--fdh-sys-font-display);
-  --fdh-merch-font-ui: var(--fdh-sys-font-ui);
+  --fdh-merch-font-display: var(--font-display, var(--fdh-sys-font-display));
+  --fdh-merch-font-ui: var(--font-sans, var(--fdh-sys-font-ui));
 
   --fdh-merch-focus-ring: var(--fdh-sys-color-focus-ring);
   --fdh-merch-transition-fast: 180ms ease;

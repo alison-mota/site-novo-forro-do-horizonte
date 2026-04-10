@@ -7,6 +7,7 @@
   overflow: hidden;
   background: var(--fdh-sys-color-bg);
   color: var(--fdh-sys-color-text-primary);
+  font-family: var(--font-sans, var(--fdh-merch-font-ui));
   isolation: isolate;
   transition: opacity 600ms ease-in, transform 600ms ease-in;
   transform: scale(1);
@@ -171,7 +172,7 @@
 .phrase {
   margin: 0;
   min-block-size: 2.9rem;
-  font-family: var(--fdh-merch-font-display, inherit);
+  font-family: var(--font-display, var(--fdh-merch-font-display));
   font-weight: 700;
   font-size: clamp(1.4rem, 2.9vw, 2.2rem);
   letter-spacing: 0.04em;

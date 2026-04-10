@@ -108,6 +108,7 @@ export function toAgendaEvent(event) {
   return {
     month: date.month,
     day: date.day,
+    year: String(date.year),
     title: event.title,
     location: event.location.toUpperCase(),
     ctaLabel: "Fotos",
