@@ -1,19 +1,22 @@
-import { useEffect, useMemo, useRef, useState } from "react";
-import MerchFaq from "../../components/sections/merch/MerchFaq";
-import MerchFooter from "../../components/sections/merch/MerchFooter";
-import MerchHero from "../../components/sections/merch/MerchHero";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import MerchLoader from "../../components/sections/merch/MerchLoader/MerchLoader";
-import MerchNav, { type MerchCategory } from "../../components/sections/merch/MerchNav";
-import MerchUnderConstruction from "../../components/sections/merch/MerchUnderConstruction";
-import ProductDetail from "../../components/sections/merch/ProductDetail";
-import PurposeSection from "../../components/sections/merch/PurposeSection";
-import StyleCarousel from "../../components/sections/merch/StyleCarousel";
+// @ts-ignore
 import styles from "./Merch.module.css";
-import { useMerchScroll } from "./useMerchScroll";
 
-const LOADER_DURATION = 4000;
-const LOADER_EXIT_DURATION = 600;
+const LOADER_DURATION = 7000;
+const LOADER_EXIT_DURATION = 6000;
 const MERCH_FIRST_OPENED_KEY = "fdh:merch:first-opened";
+const SLIDE_INTERVAL_MS = 7000;
+
+const bannerModules = import.meta.glob(
+  "../../../public/images/merch/banner/*.{png,jpg,jpeg,webp}",
+  { eager: true, import: "default" },
+) as Record<string, string>;
+
+const BANNER_IMAGES = Object.entries(bannerModules)
+  .sort(([pathA], [pathB]) => pathA.localeCompare(pathB))
+  .map(([, imageUrl]) => imageUrl);
 
 type LoaderSetup = {
   shouldShowLoader: boolean;
@@ -48,21 +51,10 @@ function getLoaderSetup(): LoaderSetup {
 }
 
 export default function MerchPage() {
-  const heroRef = useRef<HTMLDivElement | null>(null);
-  const styleRef = useRef<HTMLDivElement | null>(null);
-  const detailRef = useRef<HTMLDivElement | null>(null);
-  const purposeRef = useRef<HTMLDivElement | null>(null);
-  const faqRef = useRef<HTMLDivElement | null>(null);
   const [loaderSetup] = useState<LoaderSetup>(() => getLoaderSetup());
   const [isLoading, setIsLoading] = useState(loaderSetup.shouldShowLoader);
   const [isLoaderExiting, setIsLoaderExiting] = useState(false);
-  const [activeCategory, setActiveCategory] = useState<MerchCategory>("camisetas");
-  const isMainMerchCatalog = activeCategory === "camisetas";
-  const sectionRefs = useMemo(
-    () => [heroRef, styleRef, detailRef, purposeRef, faqRef],
-    [],
-  );
-  const wrapperRef = useMerchScroll(sectionRefs);
+  const [currentSlide, setCurrentSlide] = useState(0);
 
   useEffect(() => {
     if (!loaderSetup.shouldShowLoader) {
@@ -112,44 +104,75 @@ export default function MerchPage() {
     };
   }, [loaderSetup]);
 
+  useEffect(() => {
+    if (BANNER_IMAGES.length < 2) {
+      return;
+    }
+
+    const intervalId = window.setInterval(() => {
+      setCurrentSlide((previousSlide) => (previousSlide + 1) % BANNER_IMAGES.length);
+    }, SLIDE_INTERVAL_MS);
+
+    return () => {
+      window.clearInterval(intervalId);
+    };
+  }, []);
+
+  // @ts-ignore
   return (
-    <div
-      ref={wrapperRef}
-      className={`${styles.merchRoot} ${isMainMerchCatalog ? styles.snapRoot : ""}`}
-    >
+    <div className={styles.page}>
       {isLoading ? (
         <MerchLoader
           durationMs={Math.max(loaderSetup.minVisibleDurationMs, LOADER_DURATION)}
           isExiting={isLoaderExiting}
         />
       ) : null}
-      <MerchNav activeCategory={activeCategory} onSelectCategory={setActiveCategory} />
-      {isMainMerchCatalog ? (
-        <>
-          <main className={styles.main}>
-            <div ref={heroRef}>
-              <MerchHero />
+      <main className={styles.main}>
+        <button
+          type="button"
+          className={styles.hamburger}
+          aria-label="Abrir menu"
+        >
+          <span aria-hidden="true">☰</span>
+        </button>
+        <section className={styles.heroSection}>
+          <div className={styles.bannerWrapper}>
+            {BANNER_IMAGES.length > 0 ? (
+              BANNER_IMAGES.map((imageUrl, index) => (
+                <img
+                  key={imageUrl}
+                  src={imageUrl}
+                  alt="Banner da lojinha Forró do Horizonte"
+                  className={styles.slide}
+                  style={{ transform: `translateX(${(index - currentSlide) * 100}%)` }}
+                />
+              ))
+            ) : (
+              <div className={styles.slideFallback} aria-hidden="true" />
+            )}
+
+            <div className={styles.textOverlay}>
+              <p className={styles.overlayLineTop}>LOJINHA DO</p>
+              <p className={styles.overlayLineAccent}>HORIZONTE</p>
+              <p className={styles.overlayLineBottom}>FORRÓ DO HORIZONTE</p>
             </div>
-            <div ref={styleRef}>
-              <StyleCarousel />
-            </div>
-            <div ref={detailRef}>
-              <ProductDetail />
-            </div>
-            <div ref={purposeRef}>
-              <PurposeSection />
-            </div>
-            <div ref={faqRef}>
-              <MerchFaq />
-            </div>
-          </main>
-          <MerchFooter />
-        </>
-      ) : (
-        <main>
-          <MerchUnderConstruction category={activeCategory} />
-        </main>
-      )}
+          </div>
+
+          <div className={styles.actions}>
+            <a
+              className={`${styles.actionBtn} ${styles.actionBtnGradient}`}
+              href={`${import.meta.env.BASE_URL}loja-mostruario.html`}
+            >
+              <span>COMPRAR CAMISETAS</span>
+              <span aria-hidden="true">→</span>
+            </a>
+            <Link className={styles.actionBtn} to="/">
+              <span>SITE DA BANDA</span>
+              <span aria-hidden="true">←</span>
+            </Link>
+          </div>
+        </section>
+      </main>
     </div>
   );
 }

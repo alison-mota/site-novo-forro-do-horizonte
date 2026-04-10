@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lojinha do Horizonte</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Public+Sans:wght@400;500;600;700;800&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f7f5f2;
+      --surface: #ffffff;
+      --surface-soft: rgba(255, 255, 255, 0.84);
+      --text: #1e1e1e;
+      --muted: #5f5f5f;
+      --brand: #e55341;
+      --header-height: 64px;
+      --fab-size: 58px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Public Sans", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    .material-symbols-outlined {
+      font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+      vertical-align: middle;
+      user-select: none;
+    }
+
+    .bebas {
+      font-family: "Bebas Neue", cursive;
+      letter-spacing: 0.08em;
+    }
+
+    .page {
+      max-width: 980px;
+      margin: 0 auto;
+      min-height: 100dvh;
+      padding: calc(var(--header-height) + 14px) 14px 120px;
+    }
+
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 50;
+      height: var(--header-height);
+      background: var(--surface-soft);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    }
+
+    .header-inner {
+      max-width: 980px;
+      height: 100%;
+      margin: 0 auto;
+      padding: 0 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .back-btn {
+      border: 0;
+      background: transparent;
+      color: var(--brand);
+      width: 52px;
+      height: 52px;
+      display: grid;
+      place-items: center;
+      border-radius: 999px;
+      cursor: pointer;
+      margin-left: -7px;
+    }
+
+    .back-btn:active {
+      transform: scale(0.96);
+    }
+
+    .header-title {
+      font-size: 0.86rem;
+      line-height: 1;
+      text-transform: uppercase;
+    }
+
+    .header-title .highlight {
+      color: #2dc4c4;
+    }
+
+    .categories {
+      position: sticky;
+      top: var(--header-height);
+      z-index: 45;
+      margin-bottom: 14px;
+      padding: 12px 0 10px;
+      background: var(--surface-soft);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+      transition: padding 0.3s ease;
+    }
+
+    .categories.compact {
+      padding: 7px 0 6px;
+    }
+
+    .category-shell {
+      position: relative;
+    }
+
+    .category-shell::before,
+    .category-shell::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 20px;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .category-shell::before {
+      left: 0;
+      background: linear-gradient(90deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0));
+    }
+
+    .category-shell::after {
+      right: 0;
+      background: linear-gradient(270deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0));
+    }
+
+    .category-track {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      padding: 2px 6px 6px;
+      scroll-snap-type: x mandatory;
+      touch-action: pan-x;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+
+    .category-track::-webkit-scrollbar {
+      display: none;
+    }
+
+    .category-item {
+      flex: 0 0 auto;
+      scroll-snap-align: start;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      min-height: 40px;
+      border: 1px solid #e7e3dd;
+      border-radius: 999px;
+      background: #fff;
+      color: #4b4b4b;
+      padding: 8px 14px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      white-space: nowrap;
+      transition: all 0.3s ease;
+    }
+
+    .category-item .material-symbols-outlined {
+      font-size: 1.1rem;
+      transition: font-size 0.3s ease;
+    }
+
+    .category-item.active {
+      border-color: transparent;
+      background: #2dc4c4;
+      color: #0f2727;
+    }
+
+    .categories.compact .category-item {
+      min-height: 34px;
+      padding: 5px 11px;
+      font-size: 0.72rem;
+    }
+
+    .categories.compact .category-item .material-symbols-outlined {
+      font-size: 0.98rem;
+    }
+
+    .products {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      align-items: stretch;
+    }
+
+    .card {
+      display: flex;
+      flex-direction: column;
+      background: var(--surface);
+      border: 1px solid #ece8e2;
+      border-radius: 12px;
+      overflow: hidden;
+      min-height: 100%;
+    }
+
+    .photo {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      display: grid;
+      place-items: center;
+      background: var(--photo-bg, #efe9e2);
+      color: rgba(0, 0, 0, 0.45);
+    }
+
+    .photo .material-symbols-outlined {
+      font-size: 2.3rem;
+    }
+
+    .tag {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      font-size: 0.62rem;
+      font-weight: 700;
+      color: #fff;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .tag.promocao { background: #1f9d54; }
+    .tag.unico { background: #d97706; }
+    .tag.novo { background: #2563eb; }
+
+    .card-body {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding: 10px;
+      flex: 1;
+    }
+
+    .name {
+      margin: 0;
+      font-size: 0.84rem;
+      line-height: 1.25;
+      font-weight: 600;
+      color: #2a2a2a;
+      min-height: 2.1em;
+    }
+
+    .price {
+      margin: 0;
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: #181818;
+    }
+
+    .add-btn {
+      margin-top: auto;
+      border: 0;
+      border-radius: 9px;
+      background: linear-gradient(90deg, #f1b457 0%, #e55341 100%);
+      color: #fff;
+      width: 100%;
+      min-height: 38px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      gap: 6px;
+      transition: transform 0.2s ease, filter 0.2s ease;
+    }
+
+    .add-btn:active {
+      transform: scale(0.98);
+    }
+
+    .add-btn:hover {
+      filter: brightness(1.03);
+    }
+
+    .fab-cart {
+      position: fixed;
+      right: 24px;
+      bottom: 24px;
+      z-index: 60;
+      width: var(--fab-size);
+      height: var(--fab-size);
+      border: 0;
+      border-radius: 999px;
+      background: var(--brand);
+      color: #fff;
+      display: grid;
+      place-items: center;
+      box-shadow: 0 16px 28px rgba(0, 0, 0, 0.22);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .fab-cart .material-symbols-outlined {
+      font-size: 1.7rem;
+    }
+
+    .cart-badge {
+      position: absolute;
+      top: -4px;
+      right: -4px;
+      width: 22px;
+      height: 22px;
+      border-radius: 999px;
+      background: #fff;
+      color: var(--brand);
+      border: 1px solid var(--brand);
+      display: grid;
+      place-items: center;
+      font-size: 0.68rem;
+      font-weight: 800;
+    }
+
+    .fab-top {
+      position: fixed;
+      right: 30px;
+      bottom: 24px;
+      z-index: 55;
+      width: 44px;
+      height: 44px;
+      border: 0;
+      border-radius: 999px;
+      background: #1c1c1c;
+      color: #fff;
+      display: grid;
+      place-items: center;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.22);
+      cursor: pointer;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.3s ease;
+    }
+
+    .scrolled .categories {
+      padding: 7px 0 6px;
+    }
+
+    .scrolled .fab-cart {
+      bottom: 80px;
+    }
+
+    .scrolled .fab-top {
+      opacity: 1;
+      pointer-events: auto;
+      bottom: 24px;
+    }
+
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      align-items: flex-end;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: 90;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease-out;
+    }
+
+    .modal-overlay.is-open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .product-modal {
+      position: relative;
+      background: #fff;
+      width: 100%;
+      height: min(795px, 92dvh);
+      border-top-left-radius: 32px;
+      border-top-right-radius: 32px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 -20px 40px rgba(0, 0, 0, 0.2);
+      transform: translateY(100%);
+      transition: transform 0.4s ease-out;
+    }
+
+    .modal-overlay.is-open .product-modal {
+      transform: translateY(0);
+    }
+
+    .modal-handle {
+      position: absolute;
+      top: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 48px;
+      height: 6px;
+      border-radius: 999px;
+      background: #d6d3d1;
+      z-index: 2;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 24px;
+      right: 24px;
+      z-index: 3;
+      border: 0;
+      border-radius: 999px;
+      background: #f5f5f4;
+      color: #57534e;
+      width: 40px;
+      height: 40px;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      transition: transform 0.18s ease;
+    }
+
+    .modal-close:active {
+      transform: scale(0.95);
+    }
+
+    .modal-content {
+      flex: 1;
+      overflow-y: auto;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+
+    .modal-content::-webkit-scrollbar {
+      display: none;
+    }
+
+    .modal-gallery {
+      position: relative;
+      padding: 32px 0 16px;
+    }
+
+    .modal-gallery-track {
+      display: flex;
+      gap: 16px;
+      overflow-x: auto;
+      padding: 0 24px;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      scroll-snap-type: x mandatory;
+    }
+
+    .modal-gallery-track::-webkit-scrollbar {
+      display: none;
+    }
+
+    .modal-slide {
+      flex-shrink: 0;
+      width: 70%;
+      aspect-ratio: 4 / 5;
+      border-radius: 16px;
+      overflow: hidden;
+      scroll-snap-align: center;
+    }
+
+    .modal-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      cursor: zoom-in;
+    }
+
+    .modal-body {
+      padding: 0 24px 128px;
+    }
+
+    .modal-title {
+      margin: 0 0 8px;
+      font-family: "Bebas Neue", cursive;
+      font-size: 2.25rem;
+      line-height: 1;
+      letter-spacing: 0.025em;
+      color: #1c1917;
+    }
+
+    .modal-price {
+      margin: 0 0 16px;
+      color: var(--brand);
+      font-size: 1.875rem;
+      line-height: 1;
+      font-weight: 700;
+      letter-spacing: -0.025em;
+    }
+
+    .modal-sections {
+      display: grid;
+      gap: 24px;
+    }
+
+    .modal-label {
+      margin: 0 0 8px;
+      color: #a8a29e;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .modal-description {
+      margin: 0;
+      color: #57534e;
+      font-size: 0.875rem;
+      line-height: 1.625;
+    }
+
+    .color-list {
+      display: flex;
+      gap: 16px;
+    }
+
+    .color-item {
+      width: 40px;
+      height: 40px;
+      border-radius: 999px;
+      border: 0;
+      cursor: pointer;
+      transition: box-shadow 0.18s ease;
+    }
+
+    .color-item.selected {
+      outline: 2px solid #fff;
+      outline-offset: 2px;
+      box-shadow: 0 0 0 2px var(--brand);
+    }
+
+    .color-item.dark { background: #1c1917; }
+    .color-item.mid { background: #a8a29e; }
+    .color-item.light { background: #e7e5e4; }
+    .color-item.brand { background: var(--brand); }
+
+    .size-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .size-guide {
+      border: 0;
+      background: transparent;
+      color: var(--brand);
+      text-decoration: underline;
+      font-size: 0.75rem;
+      font-weight: 500;
+      cursor: pointer;
+      padding: 0;
+    }
+
+    .size-list {
+      display: flex;
+      gap: 8px;
+    }
+
+    .size-item {
+      flex: 1;
+      border-radius: 8px;
+      border: 1px solid #e7e5e4;
+      background: #fff;
+      color: #1c1917;
+      font-size: 0.875rem;
+      font-weight: 700;
+      min-height: 46px;
+      cursor: pointer;
+      transition: border-color 0.18s ease, color 0.18s ease;
+    }
+
+    .size-item:hover {
+      border-color: var(--brand);
+    }
+
+    .size-item.selected {
+      border: 2px solid var(--brand);
+      color: var(--brand);
+    }
+
+    .modal-cta-wrap {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: #fff;
+      border-top: 1px solid #f1f0ee;
+    }
+
+    .modal-cta {
+      width: 100%;
+      border: 0;
+      background: linear-gradient(90deg, #f1b457 0%, #e55341 100%);
+      color: #fff;
+      font-family: "Bebas Neue", cursive;
+      letter-spacing: 0.1em;
+      font-size: 1.5rem;
+      min-height: 78px;
+      cursor: pointer;
+      transition: filter 0.18s ease;
+    }
+
+    .modal-cta:active {
+      filter: brightness(0.9);
+    }
+
+    .image-viewer {
+      position: fixed;
+      inset: 0;
+      z-index: 120;
+      background: rgba(0, 0, 0, 0.82);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease-out;
+      padding: 20px;
+    }
+
+    .image-viewer.is-open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .image-viewer-content {
+      width: min(820px, 100%);
+      max-height: 100%;
+      transform: scale(0.95);
+      transition: transform 0.3s ease-out;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .image-viewer.is-open .image-viewer-content {
+      transform: scale(1);
+    }
+
+    .image-viewer-close {
+      align-self: flex-end;
+      border: 0;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.16);
+      color: #fff;
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+
+    .image-viewer-close:hover {
+      background: rgba(255, 255, 255, 0.24);
+    }
+
+    .image-viewer-close:active {
+      transform: scale(0.95);
+    }
+
+    .image-viewer-img {
+      width: 100%;
+      max-height: calc(100dvh - 110px);
+      object-fit: contain;
+      border-radius: 14px;
+      background: #111;
+    }
+
+    @media (min-width: 760px) {
+      :root {
+        --header-height: 68px;
+      }
+
+      .page {
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+
+      .header-inner {
+        padding: 0 20px;
+      }
+
+      .products {
+        gap: 16px;
+      }
+
+      .name {
+        font-size: 0.9rem;
+      }
+
+      .price {
+        font-size: 1.18rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="header-inner">
+      <button class="back-btn" id="backButton" aria-label="Voltar">
+        <span class="material-symbols-outlined">arrow_back</span>
+      </button>
+      <span class="header-title bebas">LOJINHA DO <span class="highlight">HORIZONTE</span></span>
+    </div>
+  </header>
+
+  <main class="page">
+    <section class="categories" id="categoryBar">
+      <div class="category-shell">
+        <div class="category-track" id="categoryTrack">
+          <button class="category-item active" type="button">
+            <span class="material-symbols-outlined">checkroom</span>
+            <span>Oversized Masculina</span>
+          </button>
+          <button class="category-item" type="button">
+            <span class="material-symbols-outlined">woman</span>
+            <span>Baby Look</span>
+          </button>
+          <button class="category-item" type="button">
+            <span class="material-symbols-outlined">wc</span>
+            <span>Básica Unissex</span>
+          </button>
+          <button class="category-item" type="button">
+            <span class="material-symbols-outlined">dry_cleaning</span>
+            <span>Regata</span>
+          </button>
+          <button class="category-item" type="button">
+            <span class="material-symbols-outlined">star</span>
+            <span>Polo</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section class="products" id="productGrid"></section>
+  </main>
+
+  <button class="fab-cart" id="cartFab" aria-label="Carrinho">
+    <span class="material-symbols-outlined">shopping_cart</span>
+    <span class="cart-badge" id="cartBadge">0</span>
+  </button>
+
+  <button class="fab-top" id="topFab" aria-label="Voltar ao topo">
+    <span class="material-symbols-outlined">keyboard_arrow_up</span>
+  </button>
+
+  <div class="modal-overlay" id="productModalOverlay" aria-hidden="true">
+    <div class="product-modal" role="dialog" aria-modal="true" aria-label="Detalhes do produto">
+      <div class="modal-handle"></div>
+      <button class="modal-close" id="productModalClose" type="button" aria-label="Fechar">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+      <div class="modal-content">
+        <div class="modal-gallery">
+          <div class="modal-gallery-track">
+            <div class="modal-slide">
+              <img alt="front view of a premium heavy cotton t-shirt in sunset orange color" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDz0nXMKFbsUXEyF3iyADkZiB9N9f8bfjjWgOHwuzP9XaTbNxKe90VAbVJYvjgHg8xEsIS80208dAEFdovS7i8ycUxt4B_CkwVveTZy81pn-PXGFqE1K7KHV73oEjhZQtq_R_nTLNVqEF6pFA2aKInoRPxOCahxNdzsH5xlRk8NYCqJTjUwd9b3stTmrxbwUVZvxFaDMVgzw3Sg3_KwRKp0cbFx_ljjBbVSxxOgvq3VDoywwn2U6AIpxYAwiIiiDfdJhqnYOkJfpf4">
+            </div>
+            <div class="modal-slide">
+              <img alt="detailed close-up of high-quality fabric texture" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDJK7OnrtjX8OM0HjmxZ6_y0SX47yCH7Tep16BYbqIEA_4_qOMOtkshq14ODIw-g253JfANvWxmZNdE5FWYfjC4sJznCH6QsaOZ3W3P-7ANeii5MJlZdF8HCsilPqjzR_whW3M7_yj35LeLdcud5aCZPkJMrvNWyXziZoD5GK0x2XYYM_1TNnzYOTXp0YANzjR95v177z91i0QBz8QHb3EmOCiPA25h3azg53EVDAfVMoCyW8KWkWG461Qw7Oa3RS5ZOCbVVsN2MA4">
+            </div>
+          </div>
+        </div>
+        <div class="modal-body">
+          <h1 class="modal-title">CAMISETA ESSENCIAL HORIZONTE</h1>
+          <p class="modal-price">R$ 89,90</p>
+          <div class="modal-sections">
+            <section>
+              <h3 class="modal-label">Sobre o Produto</h3>
+              <p class="modal-description">Camiseta em 100% algodão sustentável de alta gramatura. Conforto e durabilidade com caimento moderno para o dia a dia.</p>
+            </section>
+            <section>
+              <h3 class="modal-label">Cores</h3>
+              <div class="color-list">
+                <button class="color-item brand selected" type="button" aria-label="Cor laranja"></button>
+                <button class="color-item dark" type="button" aria-label="Cor preta"></button>
+                <button class="color-item mid" type="button" aria-label="Cor cinza"></button>
+                <button class="color-item light" type="button" aria-label="Cor bege"></button>
+              </div>
+            </section>
+            <section>
+              <div class="size-header">
+                <h3 class="modal-label" style="margin: 0;">Tamanho</h3>
+                <button class="size-guide" type="button">Guia de Medidas</button>
+              </div>
+              <div class="size-list">
+                <button class="size-item" type="button">P</button>
+                <button class="size-item selected" type="button">M</button>
+                <button class="size-item" type="button">G</button>
+                <button class="size-item" type="button">GG</button>
+                <button class="size-item" type="button">XG</button>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+      <div class="modal-cta-wrap">
+        <button class="modal-cta" type="button">ADICIONAR AO CARRINHO</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="image-viewer" id="imageViewer" aria-hidden="true">
+    <div class="image-viewer-content">
+      <button class="image-viewer-close" id="imageViewerClose" type="button" aria-label="Fechar visualização">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+      <img class="image-viewer-img" id="imageViewerImg" alt="Visualização ampliada do produto" src="">
+    </div>
+  </div>
+
+  <script>
+    const products = [
+      { name: "Oversized Horizonte Solar", price: "R$ 89,90", category: "Oversized Masculina", tag: "Novo", tagClass: "novo", bg: "#ece4db" },
+      { name: "Baby Look Forró Clássica", price: "R$ 64,90", category: "Baby Look", tag: "Promoção", tagClass: "promocao", bg: "#e6ebef" },
+      { name: "Básica Unissex Areia", price: "R$ 59,90", category: "Básica Unissex", tag: null, tagClass: "", bg: "#ece8e0" },
+      { name: "Regata Ritmo do Sertão", price: "R$ 72,90", category: "Regata", tag: "Único Lote", tagClass: "unico", bg: "#e9e2d8" },
+      { name: "Polo Horizonte Premium", price: "R$ 99,90", category: "Polo", tag: "Novo", tagClass: "novo", bg: "#e3e7ea" },
+      { name: "Oversized Noite de Forró", price: "R$ 92,90", category: "Oversized Masculina", tag: null, tagClass: "", bg: "#e7e1d9" }
+    ];
+
+    let cartCount = 0;
+    const body = document.body;
+    const categoryBar = document.getElementById("categoryBar");
+    const cartBadge = document.getElementById("cartBadge");
+    const topFab = document.getElementById("topFab");
+    const backButton = document.getElementById("backButton");
+    const categoryButtons = document.querySelectorAll(".category-item");
+    const productGrid = document.getElementById("productGrid");
+    const productModalOverlay = document.getElementById("productModalOverlay");
+    const productModalClose = document.getElementById("productModalClose");
+    const colorButtons = Array.from(document.querySelectorAll(".color-item"));
+    const sizeButtons = Array.from(document.querySelectorAll(".size-item"));
+    const modalSlides = Array.from(document.querySelectorAll(".modal-slide img"));
+    const imageViewer = document.getElementById("imageViewer");
+    const imageViewerImg = document.getElementById("imageViewerImg");
+    const imageViewerClose = document.getElementById("imageViewerClose");
+
+    function renderProducts() {
+      productGrid.innerHTML = products.map((product, index) => {
+        const tagMarkup = product.tag
+          ? `<span class="tag ${product.tagClass}">${product.tag}</span>`
+          : "";
+
+        return `
+          <article class="card">
+            <div class="photo" style="--photo-bg:${product.bg}">
+              <span class="material-symbols-outlined">checkroom</span>
+              ${tagMarkup}
+            </div>
+            <div class="card-body">
+              <p class="name">${product.name}</p>
+              <p class="price">${product.price}</p>
+              <button class="add-btn" type="button" data-product-index="${index}">
+                <span class="material-symbols-outlined">add_shopping_cart</span>
+                <span>Adicionar ao carrinho</span>
+              </button>
+            </div>
+          </article>
+        `;
+      }).join("");
+    }
+
+    function updateCartBadge() {
+      cartBadge.textContent = String(cartCount);
+      cartBadge.style.transform = "scale(1.16)";
+      setTimeout(() => {
+        cartBadge.style.transform = "scale(1)";
+      }, 160);
+    }
+
+    function handleScroll() {
+      if (window.scrollY > 60) {
+        body.classList.add("scrolled");
+        categoryBar.classList.add("compact");
+      } else {
+        body.classList.remove("scrolled");
+        categoryBar.classList.remove("compact");
+      }
+    }
+
+    function openProductModal() {
+      productModalOverlay.classList.add("is-open");
+      productModalOverlay.setAttribute("aria-hidden", "false");
+      body.style.overflow = "hidden";
+    }
+
+    function closeProductModal() {
+      productModalOverlay.classList.remove("is-open");
+      productModalOverlay.setAttribute("aria-hidden", "true");
+      body.style.overflow = "";
+    }
+
+    function selectColor(button) {
+      colorButtons.forEach((item) => item.classList.remove("selected"));
+      button.classList.add("selected");
+    }
+
+    function selectSize(button) {
+      sizeButtons.forEach((item) => item.classList.remove("selected"));
+      button.classList.add("selected");
+    }
+
+    function openImageViewer(src, alt) {
+      imageViewerImg.src = src;
+      imageViewerImg.alt = alt;
+      imageViewer.classList.add("is-open");
+      imageViewer.setAttribute("aria-hidden", "false");
+    }
+
+    function closeImageViewer() {
+      imageViewer.classList.remove("is-open");
+      imageViewer.setAttribute("aria-hidden", "true");
+      setTimeout(() => {
+        if (!imageViewer.classList.contains("is-open")) {
+          imageViewerImg.src = "";
+        }
+      }, 300);
+    }
+
+    renderProducts();
+    handleScroll();
+
+    document.addEventListener("click", (event) => {
+      const addButton = event.target.closest(".add-btn");
+      if (addButton) {
+        cartCount += 1;
+        updateCartBadge();
+        openProductModal();
+      }
+    });
+
+    categoryButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        categoryButtons.forEach((item) => item.classList.remove("active"));
+        button.classList.add("active");
+      });
+    });
+
+    backButton.addEventListener("click", () => {
+      if (window.history.length > 1) {
+        window.history.back();
+      } else {
+        window.location.href = "#";
+      }
+    });
+
+    topFab.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+
+    productModalClose.addEventListener("click", closeProductModal);
+    productModalOverlay.addEventListener("click", (event) => {
+      if (event.target === productModalOverlay) {
+        closeProductModal();
+      }
+    });
+
+    colorButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        selectColor(button);
+      });
+    });
+
+    sizeButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        selectSize(button);
+      });
+    });
+
+    modalSlides.forEach((image) => {
+      image.addEventListener("click", () => {
+        openImageViewer(image.src, image.alt);
+      });
+    });
+
+    imageViewerClose.addEventListener("click", closeImageViewer);
+    imageViewer.addEventListener("click", (event) => {
+      if (event.target === imageViewer) {
+        closeImageViewer();
+      }
+    });
+
+    window.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        if (imageViewer.classList.contains("is-open")) {
+          closeImageViewer();
+          return;
+        }
+        closeProductModal();
+      }
+    });
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+  </script>
+</body>
+</html>
