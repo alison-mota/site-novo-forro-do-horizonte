@@ -1,0 +1,13 @@
+.grid {
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  min-width: 0;
+}
+
+@media (min-width: 760px) {
+  .grid {
+    gap: 16px;
+  }
+}

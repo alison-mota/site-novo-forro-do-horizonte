@@ -6,16 +6,13 @@ const PHRASE_EXIT_DURATION = 300;
 
 const PHRASES = [
   "Sintonizando o Ritmo...",
-  "Forro no Horizonte",
+  "Forró no Horizonte",
   "Sol no Compasso",
-  "Ritmo de Lampiao",
-  "Forro em Chamas",
-  "Batida do Sertao",
+  "Ritmo de Lampião",
+  "Forró em Chamas",
+  "Batida do Sertão",
   "Horizonte em Festa",
 ];
-
-const PARTICLES = Array.from({ length: 12 }, (_, index) => index + 1);
-const PHRASE_BURST_PARTICLES = Array.from({ length: 14 }, (_, index) => index + 1);
 
 type MerchLoaderProps = {
   durationMs: number;
@@ -60,35 +57,10 @@ export default function MerchLoader({ durationMs, isExiting }: MerchLoaderProps)
       aria-label="Carregando loja"
     >
       <div className={styles.sun} aria-hidden="true" />
-
-      <div className={styles.particles} aria-hidden="true">
-        {PARTICLES.map((particle) => (
-          <span
-            key={particle}
-            className={`${styles.particle} ${styles[`particle${particle}`]}`}
-          />
-        ))}
-      </div>
-
       <div className={styles.content}>
-        <div
-          key={phraseIndex}
-          className={`${styles.phraseStage} ${isPhraseExiting ? styles.phraseStageExiting : ""}`}
-        >
-          <p className={`${styles.phrase} ${isPhraseExiting ? styles.phraseExit : styles.phraseEnter}`}>
-            {PHRASES[phraseIndex]}
-          </p>
-
-          <div className={styles.phraseBurst} aria-hidden="true">
-            {PHRASE_BURST_PARTICLES.map((particle) => (
-              <span
-                key={particle}
-                className={`${styles.burstParticle} ${styles[`burstParticle${particle}`]}`}
-              />
-            ))}
-          </div>
-        </div>
-
+        <p className={`${styles.phrase} ${isPhraseExiting ? styles.phraseExit : styles.phraseEnter}`}>
+          {PHRASES[phraseIndex]}
+        </p>
         <div className={styles.progressTrack} aria-hidden="true">
           <span className={styles.progressFill} style={progressStyle} />
         </div>

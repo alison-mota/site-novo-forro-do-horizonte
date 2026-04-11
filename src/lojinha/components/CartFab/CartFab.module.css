@@ -1,0 +1,60 @@
+.cartFab {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 30;
+  width: var(--loja-fab-size);
+  height: var(--loja-fab-size);
+  border: 0;
+  border-radius: var(--radius-full);
+  background: var(--color-brand);
+  color: var(--color-text-on-dark);
+  box-shadow: var(--shadow-fab);
+  display: grid;
+  place-items: center;
+}
+
+.raised {
+  bottom: 80px;
+}
+
+.icon {
+  font-size: 1.2rem;
+}
+
+.badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  width: 22px;
+  height: 22px;
+  border-radius: var(--radius-full);
+  background: var(--color-surface);
+  color: var(--color-brand);
+  border: 1px solid var(--color-brand);
+  display: grid;
+  place-items: center;
+  font-size: 0.68rem;
+  font-weight: 800;
+}
+
+.topFab {
+  position: fixed;
+  right: 30px;
+  bottom: 24px;
+  z-index: 25;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: var(--radius-full);
+  background: var(--color-text-primary);
+  color: var(--color-text-on-dark);
+  box-shadow: var(--shadow-fab);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.topFabVisible {
+  opacity: 1;
+  pointer-events: auto;
+}

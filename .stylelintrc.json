@@ -1,0 +1,13 @@
+{
+  "ignoreFiles": [
+    "src/lojinha/styles/lojinha.css"
+  ],
+  "rules": {
+    "color-no-hex": [
+      true,
+      {
+        "message": "Use CSS custom properties de src/lojinha/styles/lojinha.css. Excecao: swatches de produto via props."
+      }
+    ]
+  }
+}

@@ -1,0 +1,55 @@
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Public+Sans:wght@400;500;600;700;800&display=swap");
+
+.lojinhaTheme {
+  --color-brand: #e55341;
+  --color-brand-warm: #f1b457;
+  --color-brand-gradient: linear-gradient(90deg, #f1b457 0%, #e55341 100%);
+  --color-highlight: #2dc4c4;
+
+  --color-bg: #f7f5f2;
+  --color-surface: #ffffff;
+  --color-surface-soft: rgba(255, 255, 255, 0.84);
+
+  --color-bg-dark: #0f1217;
+  --color-surface-dark: #161a1f;
+  --color-overlay-dark: rgba(0, 0, 0, 0.5);
+
+  --color-text-primary: #1e1e1e;
+  --color-text-muted: #5f5f5f;
+  --color-text-on-dark: #ffffff;
+
+  --color-border: #ece8e2;
+  --color-border-subtle: rgba(0, 0, 0, 0.06);
+
+  --color-modal-overlay: rgba(0, 0, 0, 0.6);
+  --color-text-shadow: 0 2px 10px rgba(0, 0, 0, 0.55);
+
+  --color-tag-promo: #1f9d54;
+  --color-tag-unico: #d97706;
+  --color-tag-novo: #2563eb;
+
+  --font-ui: "Public Sans", sans-serif;
+  --font-display: "Bebas Neue", cursive;
+  --font-sora: "Sora", sans-serif;
+
+  --loja-header-height: 64px;
+  --loja-fab-size: 58px;
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 32px;
+  --radius-full: 9999px;
+
+  --shadow-fab: 0 16px 28px rgba(0, 0, 0, 0.22);
+  --shadow-modal: 0 -20px 40px rgba(0, 0, 0, 0.2);
+
+  --slide-fallback-bg: linear-gradient(160deg, #220b15 0%, #7a173f 45%, #c91b57 100%);
+  --slide-transition: 0.6s ease-in-out;
+}
+
+@media (min-width: 760px) {
+  .lojinhaTheme {
+    --loja-header-height: 68px;
+  }
+}
