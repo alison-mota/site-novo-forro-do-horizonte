@@ -1,6 +1,7 @@
 import { useMemo, useState, type CSSProperties } from "react";
 import type { Product } from "../../data/products";
-import ImageViewer from "../ImageViewer/ImageViewer";
+import ImageViewer from "../imageviewer/ImageViewer";
+import PrimaryCtaButton from "../botons/primaryctabutton/PrimaryCtaButton";
 import styles from "./ProductModal.module.css";
 
 type ProductModalProps = {
@@ -95,16 +96,14 @@ export default function ProductModal({ product, isOpen, onClose, onConfirm }: Pr
             </div>
           </div>
           <div className={styles.ctaWrap}>
-            <button
-              type="button"
-              className={styles.cta}
+            <PrimaryCtaButton
               onClick={() => {
                 onConfirm();
                 onClose();
               }}
             >
               ADICIONAR AO CARRINHO
-            </button>
+            </PrimaryCtaButton>
           </div>
         </div>
       </div>

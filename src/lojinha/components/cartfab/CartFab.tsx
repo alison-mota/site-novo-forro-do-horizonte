@@ -4,12 +4,18 @@ type CartFabProps = {
   count: number;
   showScrollTop: boolean;
   onBackToTop: () => void;
+  onOpenCart: () => void;
 };
 
-export default function CartFab({ count, showScrollTop, onBackToTop }: CartFabProps) {
+export default function CartFab({ count, showScrollTop, onBackToTop, onOpenCart }: CartFabProps) {
   return (
     <>
-      <button type="button" className={`${styles.cartFab} ${showScrollTop ? styles.raised : ""}`} aria-label="Carrinho">
+      <button
+        type="button"
+        className={`${styles.cartFab} ${showScrollTop ? styles.raised : ""}`}
+        aria-label="Carrinho"
+        onClick={onOpenCart}
+      >
         <span className={styles.icon} aria-hidden="true">
           🛒
         </span>

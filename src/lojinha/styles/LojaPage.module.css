@@ -1,0 +1,18 @@
+.page {
+  max-width: 980px;
+  width: 100%;
+  margin: 0 auto;
+  min-height: 100dvh;
+  padding: calc(var(--loja-header-height) + 14px) 14px 120px;
+  box-sizing: border-box;
+  overflow-x: clip;
+  font-family: var(--font-ui);
+  background: var(--color-bg);
+  color: var(--color-text-primary);
+}
+
+.main {
+  display: grid;
+  gap: 12px;
+  min-width: 0;
+}

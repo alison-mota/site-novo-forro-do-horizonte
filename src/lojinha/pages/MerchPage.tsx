@@ -1,18 +1,20 @@
 import { useEffect, useState } from "react";
-import ActionButtons from "../components/ActionButtons/ActionButtons";
-import HamburgerMenu from "../components/HamburgerMenu/HamburgerMenu";
-import HeroBanner from "../components/HeroBanner/HeroBanner";
-import MerchLoader from "../components/MerchLoader/MerchLoader";
+import ActionButtons from "../components/actionbuttons/ActionButtons";
+import HamburgerMenu from "../components/hamburgermenu/HamburgerMenu";
+import HeroBanner from "../components/herobanner/HeroBanner";
+import MerchLoader from "../components/merchloader/MerchLoader";
 import "../styles/lojinha.css";
-import styles from "./MerchPage.module.css";
+// @ts-ignore
+import styles from "../styles/MerchPage.module.css";
 
-const LOADER_DURATION = 7000;
-const LOADER_EXIT_DURATION = 6000;
+const LOADER_DURATION = 2000;
+const LOADER_EXIT_DURATION = 600;
 const MERCH_FIRST_OPENED_KEY = "fdh:merch:first-opened";
-const SLIDE_INTERVAL_MS = 7000;
+const SLIDE_INTERVAL_MS = 5000;
 
+// @ts-ignore
 const bannerModules = import.meta.glob(
-  "../../../public/images/merch/banner/*.{png,jpg,jpeg,webp}",
+  "../images/banner/*.{png,jpg,jpeg,webp}",
   { eager: true, import: "default" },
 ) as Record<string, string>;
 

@@ -1,15 +1,18 @@
 import { useEffect, useMemo, useState } from "react";
-import CartFab from "../components/CartFab/CartFab";
-import CategoryBar from "../components/CategoryBar/CategoryBar";
-import ProductGrid from "../components/ProductGrid/ProductGrid";
-import ProductModal from "../components/ProductModal/ProductModal";
+import { useNavigate } from "react-router-dom";
+import CartFab from "../components/cartfab/CartFab";
+import CategoryBar from "../components/categorybar/CategoryBar";
+import LojinhaHeader from "../components/header/LojinhaHeader";
+import ProductGrid from "../components/productgrid/ProductGrid";
+import ProductModal from "../components/productmodal/ProductModal";
 import { PRODUCTS, type Product } from "../data/products";
 import "../styles/lojinha.css";
-import styles from "./LojaPage.module.css";
+import styles from "../styles/LojaPage.module.css";
 
 const ALL_CATEGORY = "Todas";
 
 export default function LojaPage() {
+  const navigate = useNavigate();
   const [activeCategory, setActiveCategory] = useState(ALL_CATEGORY);
   const [showCompactCategoryBar, setShowCompactCategoryBar] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
@@ -38,29 +41,13 @@ export default function LojaPage() {
   }, []);
 
   return (
-    <div className={`lojinhaTheme ${styles.page} ${showCompactCategoryBar ? styles.scrolled : ""}`}>
-      <header className={styles.header}>
-        <div className={styles.headerInner}>
-          <button
-            type="button"
-            className={styles.backButton}
-            onClick={() => {
-              if (window.history.length > 1) {
-                window.history.back();
-              } else {
-                window.location.assign(`${import.meta.env.BASE_URL}`);
-              }
-            }}
-            aria-label="Voltar"
-          >
-            ←
-          </button>
-          <span className={styles.headerTitle}>
-            LOJINHA DO <span className={styles.highlight}>HORIZONTE</span>
-          </span>
-          <span className={styles.headerSpacer} aria-hidden="true" />
-        </div>
-      </header>
+    <div className={`lojinhaTheme ${styles.page}`}>
+      <LojinhaHeader
+        title="LOJINHA DO"
+        highlightText="HORIZONTE"
+        onBack={() => navigate("/loja/landing", { replace: true })}
+        scrolled={showCompactCategoryBar}
+      />
 
       <main className={styles.main}>
         <CategoryBar
@@ -85,7 +72,12 @@ export default function LojaPage() {
         onConfirm={() => setCartCount((count) => count + 1)}
       />
 
-      <CartFab count={cartCount} showScrollTop={showCompactCategoryBar} onBackToTop={() => window.scrollTo({ top: 0, behavior: "smooth" })} />
+      <CartFab
+        count={cartCount}
+        showScrollTop={showCompactCategoryBar}
+        onBackToTop={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+        onOpenCart={() => navigate("/loja/carrinho")}
+      />
     </div>
   );
 }

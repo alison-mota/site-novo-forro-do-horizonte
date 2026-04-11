@@ -1,0 +1,33 @@
+.button {
+  border: 0;
+  background: transparent;
+  color: var(--color-brand);
+  min-height: 52px;
+  padding: 0 14px 0 4px;
+  border-radius: var(--radius-full);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  font-family: var(--font-ui);
+  font-size: 0.86rem;
+  font-weight: 700;
+  line-height: 1;
+  text-transform: lowercase;
+}
+
+.icon {
+  display: grid;
+  place-items: center;
+  width: 1.1em;
+  height: 1.1em;
+  font-size: 1.2rem;
+  line-height: 1;
+  transform: translateY(-1px);
+}
+
+.label {
+  display: inline-flex;
+  align-items: center;
+  line-height: 1;
+}
